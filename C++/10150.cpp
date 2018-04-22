@@ -3,15 +3,40 @@
 #define fi first
 #define len(str) (int)(str.length())
 #define pb push_back
+#define FOR(i,b) for(int i = 0 ; i<b;i++)
+#define loop(i,a,b) for(int i = a ; i<b;i++)
+
 using namespace std;
 typedef vector<string> vs;
 typedef map<string,vs>  G;
 typedef map<string,string> father;
 
+using namespace std;
+
 map<string,int> vis;
 G graph;
 father p;
 string src,tgt;
+
+int f(string a, string b){
+    int diff=0;
+    for (int i=0; i<a.length(); i++)
+        if (a[i] != b[i] && ++diff > 1) return 0;
+    return 1;
+}
+
+
+void adjG(vs entries){
+    FOR(i,entries.size()){
+        loop(j,i+1,entries.size()){
+            if(f(entries[i],entries[j])){
+                graph[entries[i]].pb(entries[j]);
+                graph[entries[j]].pb(entries[i]);
+            }
+        }
+    }
+}
+
 
 void bfs(){
     //cout << src << ' ' << tgt << '\n';
@@ -50,58 +75,42 @@ void bfs(){
     }else{
         cout << "No solution.\n";
     }
-
-
 }
+
 
 int main(){
     //freopen("in.txt","r",stdin);
-	//ios::sync_with_stdio(false);
-	//cin.tie(0);
-	//cout.precision(5);
-	//cout << fixed;
-	set<string> nodes;
-	string lec,str;
+    ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.precision(5);
+	cout << fixed;
+    bool haveAdj[50] = {false};
+    vector<string> nodes[50];
+    string lec,str;
 	stringstream ss;
 	while(getline(cin,lec)){
             if(lec=="")break;
-            nodes.insert(lec);
+            nodes[len(lec)].pb(lec);
             graph[lec] = vs();
             p[lec] = lec;
             vis[lec] = 0;
 	}
-
-
-
-    for(set<string>::iterator it2 = nodes.begin(); it2!=nodes.end();it2++){
-        string nodoFi = *it2;
-        for(set<string>::iterator it  = nodes.begin() ; it!=nodes.end();it++){
-            string nodoSe = *it;
-            if(len(nodoFi)!= len(nodoSe) || nodoFi==nodoSe)continue;
-
-            int fail = 0,lon = len(nodoFi);
-            for(int l = 0 ; l < lon ; l++){
-                if(fail>1)break;
-                if(nodoFi[l] != nodoSe[l])fail++;
-            }
-            if(fail==1){
-                graph[nodoFi].pb(nodoSe);
-                graph[nodoSe].pb(nodoFi);
-            }
-        }
-    }
-    bool flang = 0;
-    /*
+    int flang = 0;
     while(getline(cin,lec)){
         ss.clear();
-        if(flang && len(lec)>0)cout <<'\n';
-        flang = 1;
+        flang++;
+        if(flang>1)cout <<'\n';
         ss << lec;
         ss >> src >> tgt;
-        bfs();
+        if(len(src)!=len(tgt)) cout << "No solution.\n";
+        else{
+            if (!haveAdj[len(src)]){
+                haveAdj[len(src)] = true;
+                adjG(nodes[len(src)]);
+            }
+            bfs();
+        }
+
     }
-    */
-
-
-	return 0;
+    return 0;
 }
