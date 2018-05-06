@@ -51,18 +51,21 @@ int bfs(int src,int en,int nodos){
     while (!q.empty()){
         int u = q.front();q.pop();
         loop(i,0,(int)graph[u].size()){
-            int v=graph[u][i].first; int w = graph[u][i].second;
+            int v=graph[u][i].first;
+            int w = graph[u][i].second;
             if (dis[v]==INF)
-                dis[v] = dis[u] +1;
-                res = max(res,w);
-                if (v==en)return res;
+                dis[v] = max(w,dis[u]);
+                if(v==en)return dis[v];
                 q.push(v);
         }
     }
+
 }
 
 
 int main(){
+    freopen("in.txt","r",stdin);
+    freopen("out.txt", "w", stdout);
     int cas,cases,nodos,edge,i,u,v,edges,q,src,en;
     scanf("%d",&cases);
     vdii l_Arc;
@@ -85,11 +88,13 @@ int main(){
                 graph[n_v].push_back(make_pair(n_u,n_w));
             }
         }
+
         printf("Case %d\n",cas+1);
         scanf("%d",&q);
         loop(i,0,q){
             scanf("%d %d",&src,&en);
-            printf("%d\n",dfs(src,en,nodos));
+            printf("%d\n",bfs(src,en,nodos));
+
         }
         puts("");
     }
