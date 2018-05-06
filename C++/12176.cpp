@@ -43,23 +43,30 @@ void unionSet(int xx,int yy){
 
 
 int bfs(int src,int en,int nodos){
-    int i;queue<int> q;
+    int i;
+    queue<int> q;
     q.push(src);
-    int dis[nodos];loop(i,0,nodos+1)dis[i] = INF;
+    int dis[nodos];
+    int n[nodos];
+    loop(i,0,nodos+1){dis[i] = INF;n[i]=0;}
+
     dis[src] = 0;
     int res= 0;
+    int cont = 0;
     while (!q.empty()){
-        int u = q.front();q.pop();
+        int u = q.front();
+        q.pop();
+        if(u==en)return dis[u];
+        if(n[u])continue;
         loop(i,0,(int)graph[u].size()){
             int v=graph[u][i].first;
             int w = graph[u][i].second;
             if (dis[v]==INF)
                 dis[v] = max(w,dis[u]);
-                if(v==en)return dis[v];
                 q.push(v);
         }
+        n[u]=1;
     }
-
 }
 
 
