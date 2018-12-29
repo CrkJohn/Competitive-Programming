@@ -67,8 +67,8 @@ bool cmp2(point p1, point p2){
 
 
 int main(){
-	//lec();
-	ios::sync_with_stdio(0);
+  //lec();
+  ios::sync_with_stdio(0);
   cin.tie(0);
   int ntc = 1;
   while(1){
@@ -76,26 +76,25 @@ int main(){
 			if(n==0)break;
 			vector<point> pts;
 			FOR(i,n){
-					point p;
-					cin >> p.x  >> p.y >> p.z;
-				  pts.pb(p);
+				point p;
+				cin >> p.x  >> p.y >> p.z;
+				pts.pb(p);
 			}
 			sort(pts.begin(),pts.end(),cmp);
-
 			point iniPoint = pts[0];
 			double iniAng = angle(iniPoint);
 			vector<point> res;
 			loop(i,1,n){
 					point tmp = pts[i];
 					double ang =  angle(tmp);
-          if(fabs(ang-iniAng)<EPS)// mismo angulo
+          				if(fabs(ang-iniAng)<EPS)// mismo angulo
 					{
 							if(iniPoint.z >= tmp.z){
-                  res.pb(tmp);
+                  						res.pb(tmp);
 							}else{
 									iniPoint = tmp;
 							}
-          }else{
+          				}else{
 							iniPoint = tmp;
 							iniAng = angle(iniPoint);
 					}
@@ -106,7 +105,7 @@ int main(){
 			if(lon == 0){
 					cout << "All the lights are visible.\n";
 			}else{
-        cout << "Some lights are not visible:\n";
+        			cout << "Some lights are not visible:\n";
 				FOR(i,lon-1){
 						cout << "x = "<<(int)res[i].x<<", y = "<<(int)res[i].y<<";\n";
 				}
