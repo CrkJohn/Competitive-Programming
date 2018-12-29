@@ -17,13 +17,11 @@ typedef vector<ii> vii;
 typedef vector<vii> vvii;
 typedef long long large;
 
-
 const double EPS = (double)1e-11 , PI = acos(-1);
 
 double RAD_TO_DEG(double rad){
 	return rad * 180.0 /  PI;
 }
-
 
 struct  point{
 	 double x,y;
@@ -32,13 +30,10 @@ struct  point{
 	 point(double X, double Y,double Z): x(X), y(Y) , z(Z){};
 };
 
-
 ostream & operator << (ostream &out, const point &c){
 		out << "x = " << c.x << ", y = " << c.y << "";
     return out;
 }
-
-
 
 double angle(point a){
 	return atan2(a.y,a.x);
@@ -47,7 +42,6 @@ double angle(point a){
 double dist(point a, point b ){
 		return sqrt(pow(a.x-b.x,2.0) + pow(b.y-a.y,2.));
 }
-
 
 bool cmp(point a, point b){
 	point ORIGIN;
