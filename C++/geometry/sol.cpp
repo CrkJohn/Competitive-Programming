@@ -21,11 +21,8 @@ ostream & operator << (ostream &out, const ii &c){
     return out;
 }
 
-
-
 int main(){
 	ios::sync_with_stdio(0);
   cin.tie(0);
-
 	return 0;
 }
