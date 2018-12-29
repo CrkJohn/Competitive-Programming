@@ -17,15 +17,39 @@ typedef vector<vii> vvii;
 typedef long long large;
 
 ostream & operator << (ostream &out, const ii &c){
-		out << "x =" << c.fi << ", y = " << c.se << ";";
+		out << "(" << c.fi << "," << c.se << ") ";
     return out;
 }
 
+const double PI = acos(-1);
 
+double DEG_TO_RAD(const double angle){
+	return angle* PI/180.0;
+}
 
 int main(){
+	//lec();
 	ios::sync_with_stdio(0);
   cin.tie(0);
-
+	int l,h,w;
+	double angle;
+	cout << fixed;
+	cout.precision(3);
+	double volBox;
+	while(1){
+		cin >> l >> w >> h;
+		if(cin.eof())break;
+		cin >> angle;
+		double cat = tan(DEG_TO_RAD(angle)) * l;
+		if(cat<=h){
+			 double  volT =  ((l*cat*w)*.5);
+			 volBox = (h*w*l) - volT;
+		}else{
+			double complementAngle = 90.0 - angle;
+			double b = h * tan(DEG_TO_RAD(complementAngle));
+      volBox = w*(h*b)* .5;
+		}
+    cout << volBox << " mL\n";
+	}
 	return 0;
 }
