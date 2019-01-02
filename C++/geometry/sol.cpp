@@ -17,10 +17,11 @@ typedef vector<vii> vvii;
 typedef long long large;
 
 ostream & operator << (ostream &out, const ii &c){
-		out << "x =" << c.fi << ", y = " << c.se << ";";
-    return out;
+	out << "x =" << c.fi << ", y = " << c.se << ";";
+    	return out;
 }
 
+<<<<<<< HEAD
 const double pi = (double)acos(-1.0);
 
 
@@ -53,9 +54,9 @@ struct point{
 
 };
 
+
 int main(){
 	ios::sync_with_stdio(0);
-  cin.tie(0);
-
+  	cin.tie(0);
 	return 0;
 }

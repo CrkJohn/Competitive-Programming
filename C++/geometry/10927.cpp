@@ -17,13 +17,11 @@ typedef vector<ii> vii;
 typedef vector<vii> vvii;
 typedef long long large;
 
-
 const double EPS = (double)1e-11 , PI = acos(-1);
 
 double RAD_TO_DEG(double rad){
 	return rad * 180.0 /  PI;
 }
-
 
 struct  point{
 	 double x,y;
@@ -32,13 +30,10 @@ struct  point{
 	 point(double X, double Y,double Z): x(X), y(Y) , z(Z){};
 };
 
-
 ostream & operator << (ostream &out, const point &c){
 		out << "x = " << c.x << ", y = " << c.y << "";
     return out;
 }
-
-
 
 double angle(point a){
 	return atan2(a.y,a.x);
@@ -47,7 +42,6 @@ double angle(point a){
 double dist(point a, point b ){
 		return sqrt(pow(a.x-b.x,2.0) + pow(b.y-a.y,2.));
 }
-
 
 bool cmp(point a, point b){
 	point ORIGIN;
@@ -67,8 +61,8 @@ bool cmp2(point p1, point p2){
 
 
 int main(){
-	//lec();
-	ios::sync_with_stdio(0);
+  //lec();
+  ios::sync_with_stdio(0);
   cin.tie(0);
   int ntc = 1;
   while(1){
@@ -76,26 +70,25 @@ int main(){
 			if(n==0)break;
 			vector<point> pts;
 			FOR(i,n){
-					point p;
-					cin >> p.x  >> p.y >> p.z;
-				  pts.pb(p);
+				point p;
+				cin >> p.x  >> p.y >> p.z;
+				pts.pb(p);
 			}
 			sort(pts.begin(),pts.end(),cmp);
-
 			point iniPoint = pts[0];
 			double iniAng = angle(iniPoint);
 			vector<point> res;
 			loop(i,1,n){
 					point tmp = pts[i];
 					double ang =  angle(tmp);
-          if(fabs(ang-iniAng)<EPS)// mismo angulo
+          				if(fabs(ang-iniAng)<EPS)// mismo angulo
 					{
 							if(iniPoint.z >= tmp.z){
-                  res.pb(tmp);
+                  						res.pb(tmp);
 							}else{
 									iniPoint = tmp;
 							}
-          }else{
+          				}else{
 							iniPoint = tmp;
 							iniAng = angle(iniPoint);
 					}
@@ -106,7 +99,7 @@ int main(){
 			if(lon == 0){
 					cout << "All the lights are visible.\n";
 			}else{
-        cout << "Some lights are not visible:\n";
+        			cout << "Some lights are not visible:\n";
 				FOR(i,lon-1){
 						cout << "x = "<<(int)res[i].x<<", y = "<<(int)res[i].y<<";\n";
 				}
