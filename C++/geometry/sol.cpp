@@ -21,7 +21,37 @@ ostream & operator << (ostream &out, const ii &c){
     return out;
 }
 
+const double pi = (double)acos(-1.0);
 
+
+struct point{
+	double x,y;
+	point(){x= y = 0.0;}
+	point(double X ,double Y){
+			x =  X;
+			y = Y;
+	}
+  bool operator <(const point &other){
+      if(fabs(x-other.x) > eps){return x < other.x;}
+      return y < other.y;
+  }
+	bool operator==(const point &a) const {
+			return fabs(x-a.x) < eps && fabs(y-a.y) < eps;
+	}
+	point operator+(const point &a) const {
+        return point(x + a.x, y + a.y);
+	}
+	point operator-(const point &a) const {
+        return point(x - a.x, y - a.y);
+	}
+	point operator/(const double val) const {
+        return point(x / val, y / val);
+	}
+	point operator*(const double val) const {
+        return point(x * val, y * val);
+	}
+
+};
 
 int main(){
 	ios::sync_with_stdio(0);
