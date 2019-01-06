@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 #define mp make_pair
 #define mt make_tuple
 #define fi first
@@ -20,7 +21,6 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpi;
-typedef vector<vpi> vvpi;
 typedef vector<vi> vvi;
 typedef long long i64;
 typedef vector<i64> vi64;
@@ -28,27 +28,7 @@ typedef vector<vi64> vvi64;
 typedef pair<i64, i64> pi64;
 typedef double ld;
 
-vvpi g;
-
-const int maxn = 2*10010;
-
-
-
-void bfs( int &tgt, int &src){
-	queue<int> q;
-	q.push(tgt);
-  int MAX = max(src,tgt) , ans = 0;
-  while(src<tgt){
-			 if(tgt%2==0){
-					tgt=tgt/2;
-			 }else{
-					tgt++;
-			 }
-			 ans++;
-  }
-  cout << ans + src - tgt << endl;
-}
-
+const int maxn = 101;
 
 int main() {
     ios::sync_with_stdio(false);
@@ -56,11 +36,33 @@ int main() {
     cout.precision(10);
     cout << fixed;
 		//in();
-    //err();
-    int src,tgt;
-    cin >> src >> tgt;
-		bfs(tgt,src);
-    cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
+		int n,m,boy[maxn],girl[maxn];
+    cin >> n;
+    forn(i,n){
+				cin >> boy[i];
+    }
+    cin >> m;
+    forn(i,m){
+			cin >> girl[i];
+    }
+    sort(boy,boy+n);
+    sort(girl,girl+m);
+		int ans = 0;
+		int girlDance[maxn];
+		memset(girlDance,0,sizeof girlDance);
+		forn(i,n){
+				int j = 0 ;
+				while(j<m){
+						if( abs(boy[i]-girl[j])<2  && !girlDance[j]){
+							girlDance[j] = 1;
+							ans++;
+							break;
 
+						}
+						j++;
+				}
+		}
+		cout << ans << endl;
+    cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

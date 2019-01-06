@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 #define mp make_pair
 #define mt make_tuple
 #define fi first
@@ -32,21 +33,59 @@ vvpi g;
 
 const int maxn = 2*10010;
 
-
-
-void bfs( int &tgt, int &src){
+void cr(const int &tgt,const int &src){
 	queue<int> q;
 	q.push(tgt);
-  int MAX = max(src,tgt) , ans = 0;
-  while(src<tgt){
-			 if(tgt%2==0){
-					tgt=tgt/2;
-			 }else{
-					tgt++;
+	g.assign(maxn,pvi());
+  int vis[maxn][2];
+  memset(vis,0,sizeof vis);
+  int MAX = max(src,tgt);
+  while(!q.empty()){
+			 int v,u = q.front();q.pop();
+			 if(u>MAX)break;
+			 if(u%2==0 && vis[u][1]==0){
+					g[u].pb(mp(u>>1,2));
+					q.push(u>>1);
+					vis[u][1] = 1;
 			 }
-			 ans++;
+			 if(u+1<maxn && vis[u][0]==0 ){
+					g[u].pb(mp(u+1,1));
+					q.push(u+1);
+					vis[u][0]=1;
+			 }
   }
-  cout << ans + src - tgt << endl;
+
+  int newSrc = min(src,tgt);
+  int newTgt = max(src,tgt);
+	priority_queue<pii, vpi , greater> pq;
+	pq.push(mp(0,newSrc));
+  int vvis[maxn];
+  memset(vvis,0,sizeof vvis);
+  vvis[newSrc] = 1;
+  while(!q.empty()){
+			pii u = qq.front();qq.pop();
+			if(vvis[u.se]> u.fi)continue;
+			if(u.se == newTgt){
+					cout << vvis[u.se] -1 << endl;
+					return;
+			}
+			for(pii v : g[u]){
+					if(vvis[u.se] + v.fi < vvis[v.se]){
+						vvis[v.se] = vvis[u.se] + v.fi;
+						pq.push(mp(vvis[v.se],v.se));
+					}
+			}
+  }
+
+
+  forn(i,g.size()){
+			cerr << "u : " << i << " v : ";
+			if(i>max(tgt,src)*2)break;
+			forn(j,g[i].size()){
+					cerr << g[i][j] << " ";
+			}
+			cerr << endl;
+  }
 }
 
 
@@ -55,11 +94,11 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-		//in();
-    //err();
+    in();
+    err();
     int src,tgt;
     cin >> src >> tgt;
-		bfs(tgt,src);
+		cr(tgt,src);
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 
     return 0;

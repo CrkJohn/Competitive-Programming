@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 #define mp make_pair
 #define mt make_tuple
 #define fi first
@@ -20,7 +21,6 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpi;
-typedef vector<vpi> vvpi;
 typedef vector<vi> vvi;
 typedef long long i64;
 typedef vector<i64> vi64;
@@ -28,26 +28,26 @@ typedef vector<vi64> vvi64;
 typedef pair<i64, i64> pi64;
 typedef double ld;
 
-vvpi g;
 
-const int maxn = 2*10010;
+const int maxn = 2010;
+int p[maxn],vis[maxn];
 
 
 
-void bfs( int &tgt, int &src){
-	queue<int> q;
-	q.push(tgt);
-  int MAX = max(src,tgt) , ans = 0;
-  while(src<tgt){
-			 if(tgt%2==0){
-					tgt=tgt/2;
-			 }else{
-					tgt++;
-			 }
-			 ans++;
-  }
-  cout << ans + src - tgt << endl;
+int ans;
+
+vvi g;
+
+void dfs(const int &u,int depth){
+	vis[u] = 1;
+	if(depth>ans)ans = depth;
+	for(int v : g[u]){
+			if(!vis[v]){
+					dfs(v,depth+1);
+			}
+	}
 }
+
 
 
 int main() {
@@ -55,12 +55,26 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-		//in();
-    //err();
-    int src,tgt;
-    cin >> src >> tgt;
-		bfs(tgt,src);
+    //in();
+    int n;
+    cin >> n;
+    for1(i,n){
+				cin >> 	p[i];
+		}
+		g.assign(n+1,vi());
+		for1(i,n){
+        if(p[i]!=-1){
+							g[p[i]].pb(i);
+        }
+		}
+		ans  = 0;
+		memset(vis,0,sizeof vis);
+		for1(i,n){
+				if(!vis[i] && p[i]==-1){
+						dfs(i,1);
+				}
+		}
+		cout << ans << endl;
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
-
     return 0;
 }
