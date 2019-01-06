@@ -51,9 +51,9 @@ void dfs(const int &u,int depth){
 
 int main() {
 	ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.precision(10);
-  cout << fixed;
+  	cin.tie(nullptr);
+  	cout.precision(10);
+  	cout << fixed;
 	//in();
 	int n;
 	cin >> n;
