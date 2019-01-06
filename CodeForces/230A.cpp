@@ -38,6 +38,7 @@ int main(){
       }else{
 					 f = 0;
 					break;
+				
       }
 	}
 	cout << ((f == 1 ) ? "YES" : "NO") << endl;
