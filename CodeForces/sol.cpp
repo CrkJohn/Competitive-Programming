@@ -33,6 +33,9 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+#ifdef
+    freopen()
+#endif
 
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
