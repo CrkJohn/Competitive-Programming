@@ -9,19 +9,22 @@
 
 using namespace std;
 
+typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<pii> vpi;
 typedef vector<vi> vvi;
-typedef pair<int,int> ii;
-typedef vector<ii> vii;
-typedef vector<vii> vvii;
-typedef long long large;
+typedef long long i64;
+typedef vector<i64> vi64;
+typedef vector<vi64> vvi64;
+typedef pair<i64, i64> pi64;
+typedef double ld;
 
-ostream & operator << (ostream &out, const ii &c){
+
+ostream & operator << (ostream &out, const pii &c){
 	out << "x =" << c.fi << ", y = " << c.se << ";";
     	return out;
 }
 
-<<<<<<< HEAD
 const double pi = (double)acos(-1.0);
 
 
@@ -56,7 +59,14 @@ struct point{
 
 
 int main(){
-	ios::sync_with_stdio(0);
-  	cin.tie(0);
+		ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.precision(10);
+    cout << fixed;
+
+
+    cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
+    return 0;
+
 	return 0;
 }
