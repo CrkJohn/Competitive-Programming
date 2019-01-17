@@ -1,5 +1,23 @@
 Data set 1:
-     Citizen at (5.0000,5.0000) is neither.
-     Citizen at (15.0000,15.0000) is neither.
+0  0
+10  0
+0  10
+0  0
+
+20  20
+20  0
+0  20
+20  20
+     Citizen at (5,5) is safe.
+     Citizen at (15,15) is safe.
 Data set 2:
-     Citizen at (40.0000,40.0000) is neither.
+0  0
+10  0
+0  10
+0  0
+
+20  20
+20  0
+0  20
+20  20
+     Citizen at (40,40) is safe.

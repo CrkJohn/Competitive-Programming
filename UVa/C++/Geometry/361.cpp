@@ -105,6 +105,7 @@ bool inPolygon(point pt, const vector<point> &P) {
   if(si(P) == 0)return false;
   double sum = 0;    // assume the first vertex is equal to the last vertex
   forn(i,si(P)-1) {
+  	if(angle(P[i], pt, P[i+1])==0)return 1;
     if (ccw(pt, P[i], P[i+1]))
          sum += angle(P[i], pt, P[i+1]);                   // left turn/ccw
     else sum -= angle(P[i], pt, P[i+1]); }                 // right turn/cw
@@ -141,7 +142,7 @@ int main(){
 	cin.tie(nullptr);
 	cout << fixed;
 	cerr.precision(4);
-	cout.precision(4);
+	cout.precision(0);
 	cerr << fixed;
   lec();
 	int c , r ,o , ntc = 1;
@@ -163,8 +164,16 @@ int main(){
 		vector<point> chCops = CH(cops);
 		vector<point> chRob = CH(robberts);
 		cout << "Data set "<<ntc++<<":\n";
+		for(point p : chCops){
+				cout << p.x << "  " << p.y << endl;
+		}
+		cout << endl;
+		for(point p : chRob){
+				cout << p.x << "  " << p.y << endl;
+		}
     for(point p : other){
 					int chBool = 0,roBool = 0;
+					cerr << inPolygon(p,chCops) << "  " << inPolygon(p,chRob) << endl;
 					if(inPolygon(p,chCops))chBool = 1;
 					if(inPolygon(p,chRob))roBool = 1;
 					cout << "     Citizen at (" << p.x<< "," << p.y <<") is";
