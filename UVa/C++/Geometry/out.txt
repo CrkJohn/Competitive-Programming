@@ -8,8 +8,8 @@ Data set 1:
 20  0
 0  20
 20  20
-     Citizen at (5,5) is safe.
-     Citizen at (15,15) is safe.
+     Citizen at (5,5) is neither.
+     Citizen at (15,15) is neither.
 Data set 2:
 0  0
 10  0
@@ -20,4 +20,4 @@ Data set 2:
 20  0
 0  20
 20  20
-     Citizen at (40,40) is safe.
+     Citizen at (40,40) is neither.

@@ -100,12 +100,41 @@ double angle(point a, point o, point b) {  // returns angle aob in rad
   return acos(dot(oa, ob) / sqrt(norm_sq(oa) * norm_sq(ob))); }
 
 
+point translate(point p, point v) {// translate p according to v
+  return point(p.x + v.x , p.y + v.y);
+}
+
+
+double distToLine(point p, point a, point b) {
+  // formula: c = a + u * ab
+  point  ap = p-a , ab = b-a;
+  double u = dot(ap, ab) / norm_sq(ab);
+  point c = translate(a,  ab * u);
+  return dist(p, c);
+}
+
+/*
+Retorna la distancia de p  a segmento ab defino por dos punto
+el closest point va ser el 4 parametro
+*/
+
+double distToLineSegment(point p, point a, point b) {
+  point ap = p-a , ab = b-a;
+  double u = dot(ap, ab) / norm_sq(ab);
+  if (u < 0.0) {
+    return dist(p, a); }// Euclidean distance between p and a
+  if (u > 1.0) {
+    return dist(p, b); }         // Euclidean distance between p and b
+  return distToLine(p, a, b);
+}
+
 
 bool inPolygon(point pt, const vector<point> &P) {
   if(si(P) == 0)return false;
   double sum = 0;    // assume the first vertex is equal to the last vertex
   forn(i,si(P)-1) {
-  	if(angle(P[i], pt, P[i+1])==0)return 1;
+  	cerr  <<  distToLineSegment(pt,P[i],P[i+1]) << endl;
+  	if(distToLineSegment(pt,P[i],P[i+1])<eps)return 1;
     if (ccw(pt, P[i], P[i+1]))
          sum += angle(P[i], pt, P[i+1]);                   // left turn/ccw
     else sum -= angle(P[i], pt, P[i+1]); }                 // right turn/cw
