@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<string>
 
 #define fore(i,a,b) for(int i = a; i<b;i++)
 #define forn(i,b) for(int i = 0; i<b;i++)
@@ -64,6 +65,11 @@ struct point{
 };
 
 
+ostream & operator << (ostream &out, const point &c){
+	out << "(" << c.x << "," << c.y << ")";
+    	return out;
+}
+
 point pivot;
 
 double cross(point a, point b){
@@ -71,14 +77,11 @@ double cross(point a, point b){
 	return a.x*b.y - a.y *b.x;
 }
 
-
 bool ccw(point p,point q, point r){return cross(q-p,r-p)>0;}
-
 
 double dist(point p, point q){
 	return hypot(p.x-q.x,p.y-q.y);
 }
-
 
 bool angleCmp(point a, point b){
 	if (fabs(cross(a-pivot,b-pivot)) < eps)return dist(pivot, a)<dist(pivot, b);    // check which one is closer
@@ -89,27 +92,20 @@ bool angleCmp(point a, point b){
 const double PI = acos(-1.);
 
 double dot(point a, point b){
-		return a.x*b.y + a.y*b.x;
+		return a.x*b.x + a.y*b.y;
 }
 
 double norm_sq(point a){return a.x*a.x + a.y*a.y;}
 
-
 double angle(point a, point o, point b) {  // returns angle aob in rad
   point oa = a-o, ob = b-o;
-  return acos(dot(oa, ob) / sqrt(norm_sq(oa) * norm_sq(ob))); }
-
-
-point translate(point p, point v) {// translate p according to v
-  return point(p.x + v.x , p.y + v.y);
+  return acos(dot(oa, ob) / sqrt(norm_sq(oa) * norm_sq(ob)));
 }
 
-
-double distToLine(point p, point a, point b) {
-  // formula: c = a + u * ab
-  point  ap = p-a , ab = b-a;
+double distToLine(point p, point a, point b, point &c) {
+  point ap = p-a, ab = b-a;
   double u = dot(ap, ab) / norm_sq(ab);
-  point c = translate(a,  ab * u);
+  c =  a +  (ab * u);
   return dist(p, c);
 }
 
@@ -119,21 +115,20 @@ el closest point va ser el 4 parametro
 */
 
 double distToLineSegment(point p, point a, point b) {
-  point ap = p-a , ab = b-a;
+  point ap = p-a, ab =  b-a;
+  point c;
   double u = dot(ap, ab) / norm_sq(ab);
-  if (u < 0.0) {
+  if (u < 0.0) { c = point(a.x, a.y);// closer to a
     return dist(p, a); }// Euclidean distance between p and a
-  if (u > 1.0) {
+  if (u > 1.0) { c = point(b.x, b.y);                   // closer to b
     return dist(p, b); }         // Euclidean distance between p and b
-  return distToLine(p, a, b);
+  return distToLine(p, a, b, c);
 }
-
 
 bool inPolygon(point pt, const vector<point> &P) {
   if(si(P) == 0)return false;
   double sum = 0;    // assume the first vertex is equal to the last vertex
   forn(i,si(P)-1) {
-  	cerr  <<  distToLineSegment(pt,P[i],P[i+1]) << endl;
   	if(distToLineSegment(pt,P[i],P[i+1])<eps)return 1;
     if (ccw(pt, P[i], P[i+1]))
          sum += angle(P[i], pt, P[i+1]);                   // left turn/ccw
@@ -144,6 +139,7 @@ bool inPolygon(point pt, const vector<point> &P) {
 
 vector<point> CH(vector<point> &P){
     int n  = si(P);
+    if(n==0)return P;
     if(n<=3){
 				if(!(P[0]==P[n-1]))P.pb(P[0]);
 				return P;
@@ -164,52 +160,57 @@ vector<point> CH(vector<point> &P){
     return S;
 }
 
-
-
 int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	cout << fixed;
-	cerr.precision(4);
+	cerr.precision(2);
 	cout.precision(0);
 	cerr << fixed;
-  lec();
-	int c , r ,o , ntc = 1;
+  //lec();
+	int f= 0, c , r ,o , ntc = 1;
 	while(1){
 		cin >> c >> r >> o;
 		if(c+r+o==0)break;
-		vector<point> cops(c);
-		vector<point> robberts(r);
-		vector<point> other(o);
+		vector<point> cops(c) , robberts(r) , other(o);
+		map<string,int> cMap,rMap;
 		forn(i,c){
 				cin >> cops[i].x >> cops[i].y;
+				int x = (int)cops[i].x;
+				int y = (int)cops[i].y;
+				string str  = to_string(x)+"-"+to_string(y);
+				int sizeMap = cMap[str];
+				cMap[str] = (sizeMap) ? sizeMap+1 : 1;
 		}
 		forn(i,r){
 				cin >> robberts[i].x >> robberts[i].y;
+				int x = (int)robberts[i].x;
+				int y = (int)robberts[i].y;
+				string str  = to_string(x)+"-"+to_string(y);
+				int sizeMap = rMap[str];
+				rMap[str] = (sizeMap) ? sizeMap+1 : 1;
 		}
-		forn(i,o){
-				cin >> other[i].x >> other[i].y;
-		}
+		forn(i,o)cin >> other[i].x >> other[i].y;
 		vector<point> chCops = CH(cops);
 		vector<point> chRob = CH(robberts);
 		cout << "Data set "<<ntc++<<":\n";
-		for(point p : chCops){
-				cout << p.x << "  " << p.y << endl;
-		}
-		cout << endl;
-		for(point p : chRob){
-				cout << p.x << "  " << p.y << endl;
-		}
-    for(point p : other){
+		int sizeCops = si(chCops) , sizeRobs = si(chRob);
+		for(point p : other){
 					int chBool = 0,roBool = 0;
-					cerr << inPolygon(p,chCops) << "  " << inPolygon(p,chRob) << endl;
-					if(inPolygon(p,chCops))chBool = 1;
-					if(inPolygon(p,chRob))roBool = 1;
+					int x = (int)p.x;
+					int y = (int)p.y;
+					string str  = to_string(x)+"-"+to_string(y);
+					if(rMap[str]>=3)roBool=1;
+					if(cMap[str]>=3)chBool=1;
+					if(sizeCops>3)if(inPolygon(p,chCops))chBool = 1;
+					if(sizeRobs>3)if(inPolygon(p,chRob))roBool = 1;
 					cout << "     Citizen at (" << p.x<< "," << p.y <<") is";
 					if(chBool)cout << " safe.\n";
 					else if(roBool)cout << " robbed.\n";
 					else cout << " neither.\n";
     }
+		cout << endl;
+
 
 	}
 	cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
