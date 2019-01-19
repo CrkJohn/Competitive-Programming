@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+typedef long long gtype;
+typedef complex<gtype> point;
+#define x real()
+#define y imag()
+#define crs(a, b) ( (conj(a) * (b)).y )
+
+long double polArea(vector<point> & p) {
+    long double area = 0;
+    for (size_t i = 0; i < p.size() - 1; ++i)
+        area += crs(p[i], p[i + 1]);
+    return abs(area) * 0.5;
+}
+
+long long gcd(long long a, long long b) {
+    long long t;
+    while (b)
+        t = b, b = a % b, a = t;
+    return a;
+}
+
+long long polLatticeB(vector<point> & p) {
+    long long b = 0;
+    for (size_t i = 1; i < p.size(); ++i)
+        b += gcd(abs(p[i].y - p[i - 1].y), abs(p[i].x - p[i - 1].x));
+    return b;
+}
+
+int main() {
+    int n;
+    while (cin >> n && n) {
+        // polygons
+        vector<point> p(n + 1);
+        for (int i = 0; i < n; ++i){
+						long long x,y;
+						cin>>x>>y;
+						//p[i]= point(x,y);
+        }
+
+        p[n] = p[0];
+        // is convex
+        cout << (long long) (polArea(p) - polLatticeB(p) * 0.5l + 1) << endl;
+    }
+    return 0;
+}
