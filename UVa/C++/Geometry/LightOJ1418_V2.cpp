@@ -8,19 +8,19 @@
 #define pb push_back
 #define si(a) ((int)a.size())
 #define eps 1e-9
-
+#define NEXT(i,n) (((i) + 1) % n)
 
 /*
 	Veredict = time limit
 */
 
 using namespace std;
-
+typedef long long ll;
 
 struct point{
-	double x,y;
+	ll x,y;
 	point(){x = y = 0.0;}
-	point(int X,int Y){
+	point(ll X,ll Y){
 			x = X;
 			y = Y;
 	}
@@ -41,53 +41,9 @@ struct point{
 	}
 };
 
-double dist(point a, point b){
-	return hypot(a.x-b.x,a.y-b.y);
-}
-
-double cross(point a, point b){
-	return a.x*b.y - a.y*b.x;
-}
-
-bool ccw(point p, point q, point r){
-		return cross(q-p,r-p)>0;
-}
 
 
-point pivot;
 
-bool angleCmp(point a,point b){
-	if(fabs(cross(a-pivot,b-pivot))< eps){
-			return dist(a,pivot)< dist(b,pivot);
-	}
-  point x = a-pivot, y = b-pivot;
-  return atan2(x.y,x.x) - atan2(y.x,y.y) < 0;
-}
-
-vector<point> CH(vector<point> P){
-	int n = si(P);
-	if(n<=3){
-			if(!(P[0]==P[n-1]))P.pb(P[0]);
-			return P;
-	}
-	int P0 = 0;
-	for1(i,n-1){
-		if(P[i].y < P[P0].y || (P[i].y== P[P0].y && P[i].x > P[P0].x  )){
-				P0 = i;
-		}
-	}
-	swap(P[0],P[P0]);
-	pivot = P[0];
-	sort(++P.begin(),P.end(),angleCmp);
-	vector<point> S;
-	S.pb(P[n-1]); S.pb(P[0]); S.pb(P[1]);
-	int i = 2,j;
-	while(i<n){
-			j = si(S)-1;
-			(ccw(S[j-1], S[j], P[i]))?S.pb(P[i++]):S.pop_back();
-	}
-	return S;
-}
 
 double area(const vector<point> &P) {
   double result = 0.0, x1, y1, x2, y2;
@@ -99,6 +55,21 @@ double area(const vector<point> &P) {
   return fabs(result) / 2.0;
 }
 
+ll points_on_segment(const point p,const point q){
+	point pq = p - q;
+	return __gcd(abs(pq.x), abs(pq.y));
+}
+
+
+double pickTheorem(vector<point> &P){
+	double A = area(P);ll B = 0;double I = 0;
+	int n = si(P);
+	forn(i,n)
+		B += points_on_segment(P[i], P[NEXT(i,n)]);
+	A = fabs(A);
+	I = A-(B/2.) + 1;
+	return I;
+}
 
 int main(){
 	ios::sync_with_stdio(0);
@@ -117,13 +88,7 @@ int main(){
 			forn(i,n){
 					cin >> pts[i].x >> pts[i].y;
 			}
-			//cerr << "end ch" << endl;
-			vector<point> ch = CH(pts);
-
-			int B = si(ch);
-			double  A = area(ch);
-			cout << A << endl;
-			cout <<"Case "<<cases<<": "<<   floor(A+1 - (B/2))<< endl;
+			cout <<"Case "<<cases<<": "<<   pickTheorem(pts)<< endl;
 	}
 	return 0;
 }
