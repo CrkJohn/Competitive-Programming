@@ -37,39 +37,37 @@ int main() {
     in();
     out();
     vector<string> vs;
-		set<string> stS;
-		while(1){
-			string str;
-			getline(cin,str);
-			if(cin.eof())break;
-      stringstream ss;
-      ss << str;
-      string tokens;
-      while(ss >> tokens){
-          string sp  = "";
-          int len = tokens.length();
-          forn(i,len){
-              if(tokens[i]>='a' && tokens[i]<='z'){
-									sp.pb(tokens[i]);
-              }
-              else if(tokens[i]>='A' && tokens[i]<='Z'){
-								sp.pb(tokens[i]-('Z' - 'z'));
-              }              else{
-								if(sp.length()>0){
-										stS.insert(sp);
-										sp = "";
-								}
+    set<string> stS;
+    while(1){
+	    string str;
+	    getline(cin,str);
+	    if(cin.eof())break;
+	    stringstream ss;
+	    ss << str;
+	    string tokens;
+	    while(ss >> tokens){
+		    string sp  = "";
+		    int len = tokens.length(); 
+		    forn(i,len){
+			      if(tokens[i]>='a' && tokens[i]<='z'){
+				      sp.pb(tokens[i]);
+			      }else if(tokens[i]>='A' && tokens[i]<='Z'){
+				      sp.pb(tokens[i]-('Z' - 'z'));
+              		      }else{
+						if(sp.length()>0){
+							stS.insert(sp);
+							sp = "";
 						}
-					}
-					if(sp.length()>0)stS.insert(sp);
 				}
-		}
-		vs.assign(stS.begin(),stS.end());
-		sort(all(vs));
-		for(auto s : vs){
-					cout << s << endl;
-
-		}
-    cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
-    return 0;
+		    }
+		    if(sp.length()>0)stS.insert(sp);
+	    }
+    }
+	vs.assign(stS.begin(),stS.end());
+	sort(all(vs));
+	for(auto s : vs){
+		cout << s << endl;
+	}
+	cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
+	return 0;
 }
