@@ -36,9 +36,8 @@ int main() {
     cout << fixed;
     in();
     out();
-		vector<string> vs;
+    vector<string> vs;
 		set<string> stS;
-
 		while(1){
 			string str;
 			getline(cin,str);
