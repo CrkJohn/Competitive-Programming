@@ -35,36 +35,41 @@ int main() {
     cout << fixed;
     //in();
     //out();
-    while(1){
-				int w,h,n;
-				cin >> w >> h >> n;
-				if(w+h+n==0)break;
-				int square[w][h];
-				memset(square,0,sizeof square);
-				forn(i,n){
-          int x1,y1,x2,y2;
-          cin >> x1 >> y1 >> x2 >> y2;
-          x1--;x2--;y1--;y2--;
-					int infX = min(x1,x2);
-					int infY = min(y1,y2);
-					int supX = max(x1,x2);
-					int supY = max(y1,y2);
-          fore(i,infX,supX){
-							fore(j,infY,supY){
-									square[i][j] = 1;
+		while(1){
+			 int  isStk = 1 , isQ = 1 , isPq  = 1;
+			 stack<int> st;
+			 queue<int> q;
+			 priority_queue<int> pq;
+       int n;
+       cin >> n;
+       if(cin.eof())break;
+			 forn(i,n){
+					int  op, num ;
+					cin >> op  >> num;
+					if(op==1){
+							if(isStk)st.push(num);
+							if(isQ)q.push(num);
+							if(isPq)pq.push(num);
+					}else{
+						 if(isPq){
+								 if(pq.empty() || pq.top()!= num )isPq = 0; else	pq.pop();
 							}
-          }
-				}
-				i64 totalCuadros = 0;
-        forn(i,w){
-						forn(j,h){
-							if(square[i][j]==0)totalCuadros++;
-						}
-        }
-        if (totalCuadros==0)cout <<  "There is no empty spots."  << endl;
-        else if(totalCuadros==1) cout << "There is one empty spot." <<endl;
-        else cout << "There are "<<totalCuadros<<" empty spots." << endl;
-    }
+             if(isQ){
+							 if(q.empty() || q.front()!=num)isQ = 0; else  q.pop();
+             }
+             if(isStk){
+								if(st.empty() || st.top()!=num)isStk = 0;else st.pop();
+             }
+					}
+			 }
+			 cerr << isStk <<" " <<  isQ << " " << isPq << endl;
+			if (isStk && !isQ && !isPq)cout << "stack" << endl;
+			else if (!isStk && isQ && !isPq)cout << "queue" << endl;
+			else if (!isStk && !isQ && isPq )cout << "priority queue" << endl;
+			else if (!isStk && !isQ && !isPq )cout << "impossible" << endl;
+			else cout << "not sure" << endl;
+		}
+
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

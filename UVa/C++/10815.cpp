@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 
 #define mp make_pair
@@ -33,38 +34,43 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-    //in();
-    //out();
-    while(1){
-				int w,h,n;
-				cin >> w >> h >> n;
-				if(w+h+n==0)break;
-				int square[w][h];
-				memset(square,0,sizeof square);
-				forn(i,n){
-          int x1,y1,x2,y2;
-          cin >> x1 >> y1 >> x2 >> y2;
-          x1--;x2--;y1--;y2--;
-					int infX = min(x1,x2);
-					int infY = min(y1,y2);
-					int supX = max(x1,x2);
-					int supY = max(y1,y2);
-          fore(i,infX,supX){
-							fore(j,infY,supY){
-									square[i][j] = 1;
-							}
-          }
-				}
-				i64 totalCuadros = 0;
-        forn(i,w){
-						forn(j,h){
-							if(square[i][j]==0)totalCuadros++;
+    in();
+    out();
+		vector<string> vs;
+		set<string> stS;
+
+		while(1){
+			string str;
+			getline(cin,str);
+			if(cin.eof())break;
+      stringstream ss;
+      ss << str;
+      string tokens;
+      while(ss >> tokens){
+          string sp  = "";
+          int len = tokens.length();
+          forn(i,len){
+              if(tokens[i]>='a' && tokens[i]<='z'){
+									sp.pb(tokens[i]);
+              }
+              else if(tokens[i]>='A' && tokens[i]<='Z'){
+								sp.pb(tokens[i]-('Z' - 'z'));
+              }              else{
+								if(sp.length()>0){
+										stS.insert(sp);
+										sp = "";
+								}
 						}
-        }
-        if (totalCuadros==0)cout <<  "There is no empty spots."  << endl;
-        else if(totalCuadros==1) cout << "There is one empty spot." <<endl;
-        else cout << "There are "<<totalCuadros<<" empty spots." << endl;
-    }
+					}
+					if(sp.length()>0)stS.insert(sp);
+				}
+		}
+		vs.assign(stS.begin(),stS.end());
+		sort(all(vs));
+		for(auto s : vs){
+					cout << s << endl;
+
+		}
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

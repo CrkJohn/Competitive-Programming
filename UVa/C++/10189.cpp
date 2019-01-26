@@ -14,7 +14,7 @@
 #define in() freopen("in.txt","r",stdin)
 #define out() freopen("out.txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
-#define si(a) ((int)a.size())
+
 
 using namespace std;
 
@@ -28,43 +28,62 @@ typedef vector<vi64> vvi64;
 typedef pair<i64, i64> pi64;
 typedef double ld;
 
+int n,m;
+
+const int maxn = 111;
+
+bool let(const int x, const int y){
+	return  0<=x && x<n && 0<=y && y<m;
+}
+
+const int dx[] = {-1,1,0,   1,-1, -1,0,1} ;
+const int dy[]=  {-1,-1,-1, 0,0,  1,1,1};
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-    //in();
-    //out();
-    while(1){
-				int w,h,n;
-				cin >> w >> h >> n;
-				if(w+h+n==0)break;
-				int square[w][h];
-				memset(square,0,sizeof square);
-				forn(i,n){
-          int x1,y1,x2,y2;
-          cin >> x1 >> y1 >> x2 >> y2;
-          x1--;x2--;y1--;y2--;
-					int infX = min(x1,x2);
-					int infY = min(y1,y2);
-					int supX = max(x1,x2);
-					int supY = max(y1,y2);
-          fore(i,infX,supX){
-							fore(j,infY,supY){
-									square[i][j] = 1;
+		int f = 0;
+		//in();
+		//out();
+		int ntc  = 1;
+		while(1){
+			cin >> n >> m;
+			if(n+m==0)break;
+			string str;
+			getline(cin,str);
+			vector<string> mine(n);
+			forn(i,n){
+					cin >> mine[i];
+			}
+			if(f) cout << endl;
+			f = 1;
+			int result[maxn][maxn];
+			forn(i,n)forn(j,m)result[i][j] = 0;
+			forn(i,n){
+				forn(j,m){
+						forn(t,8){
+							int k = dx[t] + i , h = dy[t] + j;
+							if(let(k,h) && mine[i][j] == '*' && mine[k][h]!='*'){
+										result[k][h]+=1;
 							}
-          }
-				}
-				i64 totalCuadros = 0;
-        forn(i,w){
-						forn(j,h){
-							if(square[i][j]==0)totalCuadros++;
 						}
-        }
-        if (totalCuadros==0)cout <<  "There is no empty spots."  << endl;
-        else if(totalCuadros==1) cout << "There is one empty spot." <<endl;
-        else cout << "There are "<<totalCuadros<<" empty spots." << endl;
-    }
+				}
+			}
+			cout << "Field #"<<ntc++<<":"<<endl;
+			forn(i,n){
+				forn(j,m){
+					if(mine[i][j]=='*'){
+							cout << '*';
+					}else{
+						cout << result[i][j];
+					}
+				}
+				cout << endl;
+			}
+		}
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

@@ -94,7 +94,8 @@ bool collinear(point p, point q, point r) {
 
 
 bool angleCmp(point a, point b) {                 // angle-sorting function
-  //if (fabs(cross(a-pivot,b-pivot)) < eps)return dist(pivot, a)<dist(pivot, b);    // check which one is closer
+  if (fabs(cross(a-pivot,b-pivot)) < eps)
+		return dist(pivot, a)<dist(pivot, b);    // check which one is closer
   point  d1  = a-pivot, d2 = b - pivot;
   return (atan2(d1.y, d1.x) - atan2(d2.y, d2.x)) < 0;
 }

@@ -14,7 +14,7 @@
 #define in() freopen("in.txt","r",stdin)
 #define out() freopen("out.txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
-#define si(a) ((int)a.size())
+
 
 using namespace std;
 
@@ -33,38 +33,30 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-    //in();
-    //out();
-    while(1){
-				int w,h,n;
-				cin >> w >> h >> n;
-				if(w+h+n==0)break;
-				int square[w][h];
-				memset(square,0,sizeof square);
+    int ntc = 1;
+		in();
+		out();
+		const int maxn = 51;
+		while(1){
+				int n;
+				cin >> n;
+				if(n==0)break;
+				int arr[maxn];
+				i64 media =0;
 				forn(i,n){
-          int x1,y1,x2,y2;
-          cin >> x1 >> y1 >> x2 >> y2;
-          x1--;x2--;y1--;y2--;
-					int infX = min(x1,x2);
-					int infY = min(y1,y2);
-					int supX = max(x1,x2);
-					int supY = max(y1,y2);
-          fore(i,infX,supX){
-							fore(j,infY,supY){
-									square[i][j] = 1;
-							}
-          }
+					cin >> arr[i];
+					media+=arr[i];
 				}
-				i64 totalCuadros = 0;
-        forn(i,w){
-						forn(j,h){
-							if(square[i][j]==0)totalCuadros++;
-						}
-        }
-        if (totalCuadros==0)cout <<  "There is no empty spots."  << endl;
-        else if(totalCuadros==1) cout << "There is one empty spot." <<endl;
-        else cout << "There are "<<totalCuadros<<" empty spots." << endl;
-    }
+				media = media/n;
+				i64 res = 0;
+				forn(i,n){
+					if(arr[i]>media){
+							res +=(arr[i]-media);
+					}
+				}
+				cout << "Set #"<< ntc++ << endl;
+				cout << "The minimum number of moves is "<<res<<".\n\n";
+		}
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

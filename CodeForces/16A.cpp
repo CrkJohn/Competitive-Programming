@@ -14,7 +14,7 @@
 #define in() freopen("in.txt","r",stdin)
 #define out() freopen("out.txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
-#define si(a) ((int)a.size())
+
 
 using namespace std;
 
@@ -28,43 +28,44 @@ typedef vector<vi64> vvi64;
 typedef pair<i64, i64> pi64;
 typedef double ld;
 
+
+
+
+int n,m;
+
+bool let(const int x, const int y){
+	return  0<=x && x<n && 0<=y && y<m;
+}
+
+const int maxn = 123;
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+
+
+
+
     //in();
-    //out();
-    while(1){
-				int w,h,n;
-				cin >> w >> h >> n;
-				if(w+h+n==0)break;
-				int square[w][h];
-				memset(square,0,sizeof square);
-				forn(i,n){
-          int x1,y1,x2,y2;
-          cin >> x1 >> y1 >> x2 >> y2;
-          x1--;x2--;y1--;y2--;
-					int infX = min(x1,x2);
-					int infY = min(y1,y2);
-					int supX = max(x1,x2);
-					int supY = max(y1,y2);
-          fore(i,infX,supX){
-							fore(j,infY,supY){
-									square[i][j] = 1;
-							}
-          }
-				}
-				i64 totalCuadros = 0;
-        forn(i,w){
-						forn(j,h){
-							if(square[i][j]==0)totalCuadros++;
-						}
+		cin >> n >> m;
+	  vector<string> vs(n);
+    forn(i,n)cin >> vs[i];
+    forn(i,n){
+        forn(j,m){
+            if(vs[i][j]!=vs[i][0]){
+                cout << "NO" << endl;
+                return 0;
+            }
         }
-        if (totalCuadros==0)cout <<  "There is no empty spots."  << endl;
-        else if(totalCuadros==1) cout << "There is one empty spot." <<endl;
-        else cout << "There are "<<totalCuadros<<" empty spots." << endl;
+        if(i>0 && vs[i][0]== vs[i-1][0]){
+            cout << "NO" << endl;
+            return 0;
+        }
     }
+    cout << "YES" << endl;
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }
+
