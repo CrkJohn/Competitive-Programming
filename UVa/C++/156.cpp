@@ -34,8 +34,11 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+    /*
     in();
+    err();
     out();
+    */
     vector<string> vs;
     while(1){
         string str;
@@ -44,17 +47,18 @@ int main() {
         stringstream ss ;
         ss << str;
         string a;
+//        cerr << str << endl;
         while(ss >> a)vs.pb(a);
     }
-    vector<string> sol;
+    set<string> sol;
     int len = si(vs);
-    forn(i,len-1){
+    forn(i,len){
         string a = vs[i];
-        int flang = 0;
-        fore(j,i+1,len-1){
-            sort(all(a));
+//        cerr << " a : " << a << endl;
+        int flang = 1;
+        forn(j,len){
+						if(i==j)continue;
             string b = vs[j];
-            sort(all(b));
             string lowerA , lowerB;
             for(auto la : a ){
                 char c = ('A'<=la && la<='Z') ? (la-('Z'-'z')) : la;
@@ -64,27 +68,24 @@ int main() {
                 char c = ('A'<=lb && lb<='Z') ? (lb-('Z'-'z')) : lb;
                 lowerB.pb(c);
             }
+            sort(all(lowerB));
+            sort(all(lowerA));
+						if(a=="BARRY")cerr << "lower a : " << lowerA << " lower b : " << lowerB << " \n b : " << b << endl;
             if(lowerA== lowerB){
-                    flang = 1;
-                    break;
+								if(lowerA=="barry"){
+									 cerr << a << " " << b << endl;
+								}
+									flang = 0;
+									break;
             }
         }
-        if(!flang){
-                sol.pb(vs[i]);
-            cerr << vs[i] << endl;
-
+        if(flang){
+						sol.insert(vs[i]);
         }
     }
     for(auto s : sol){
-            cout << s << endl;
-
+					cout << s << endl;
     }
-    sort(all(sol));
-    for(auto s : sol){
-            cout << s << endl;
-
-    }
-
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
