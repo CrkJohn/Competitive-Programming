@@ -33,8 +33,14 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-
-
+		ll n, m , a;
+		cin >> n>> m >>a;
+    ll x = n/a;
+    ll y = m/a;
+    if(n%a)x++;
+    if(m%a)y++;
+    ll res = x*y;
+		cout << res << endl;
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

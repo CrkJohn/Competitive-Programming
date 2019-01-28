@@ -28,13 +28,40 @@ typedef vector<vll> vvll;
 typedef pair<ll,ll> pi64;
 typedef double ld;
 
+const int maxn = 1e9 + 10;
+
+ll descompision(ll &num){
+	ll suma = 0;
+	while(num){
+			int n = num%10;
+			suma+=(n*n);
+			num/=10;
+	}
+	return suma;
+}
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-
-
+    in();
+    int ntc;
+    cin >> ntc;
+    for1(nt,ntc){
+			ll num;cin >> num;
+			ll num2 = num;
+			map<ll,ll> found;
+			while(!found[num] && num!=1){
+//					 cerr << "before num : " << num;
+					 found[num]=1;
+					 num = descompision(num);
+//					 cerr << " after num :  "<< num << endl;
+			}
+			if(num==1)cout << "Case #"<<nt<<": "<<num2<<" is a Happy number." << endl;
+			else cout <<"Case #"<<nt<<": "<<num2<<" is an Unhappy number." << endl;
+	  }
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

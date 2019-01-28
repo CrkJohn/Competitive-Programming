@@ -20,21 +20,63 @@ using namespace std;
 
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<string> vs;
 typedef vector<pii> vpi;
 typedef vector<vi> vvi;
-typedef long long ll;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef pair<ll,ll> pi64;
+typedef long long i64;
+typedef vector<i64> vi64;
+typedef vector<vi64> vvi64;
+typedef pair<i64, i64> pi64;
 typedef double ld;
+
+
+vs res;
+
+
+int solve(){
+		int n = si(res);
+		forn(i,n){
+			string a = res[i];
+			int lenA = si(res[i]);
+			for(int j = 0; j<n ; j++){
+          if(i==j)continue;
+          string b = res[j];
+          int lenB = si(b);
+          if(lenB>lenA){
+							string sub = b.substr(0,lenA);
+							if(sub == a){
+									return 0;
+							}
+          }
+			}
+		}
+		return 1;
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-
-
+    //in();
+    //out();
+    int ntc = 1;
+    while(1){
+				string str;
+				getline(cin,str);
+				if(str.length()==0)break;
+				if(str[0]=='9'){
+					int res2 = solve();
+					res.clear();
+					if(res2){
+						cout <<"Set "<<ntc++<<" is immediately decodable" <<endl;
+					}else{
+						cout <<"Set "<<ntc++<<" is not immediately decodable" << endl;
+					}
+				}else{
+						res.pb(str);
+				}
+    }
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

@@ -33,8 +33,33 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-
-
-    cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
+		int n;
+		//in();
+		//out();
+		while(1){
+				cin >> n;if(n==0)break;
+				int fst = INT_MAX;
+				vi totalSpace;
+				string str;getline(cin,str);
+				forn(lec,n){
+					getline(cin,str);
+					int i = str.find(' ');
+					int j  = i;
+					while(str[i++]!='X');
+					i--;
+					cerr << str << endl;
+					cerr << " i: " <<  i << " j : " << j <<endl;
+					if(j==-1){ i = j = 0;}
+					totalSpace.pb(i-j);
+					cerr << i-j << endl;
+					fst = min(fst,i-j);
+        }
+        int spaceB = 0;
+        for(auto B: totalSpace){
+           spaceB += (B-fst);
+        }
+        cout << spaceB << endl;
+		}
+		cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

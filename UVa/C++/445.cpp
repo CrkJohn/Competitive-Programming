@@ -22,10 +22,10 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpi;
 typedef vector<vi> vvi;
-typedef long long ll;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef pair<ll,ll> pi64;
+typedef long long i64;
+typedef vector<i64> vi64;
+typedef vector<vi64> vvi64;
+typedef pair<i64, i64> pi64;
 typedef double ld;
 
 int main() {
@@ -33,8 +33,32 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+    string str;
+    in();
+    out();
+    while(getline(cin,str)){
+				if(str.length()==0){
+						cout << endl;
+						continue;
 
-
+				}
+				int len = str.length();
+				int suma = 0;
+				for(auto c : str){
+						if('1'<=c && c<='9') suma+=(c-'0');
+						else if(c == 'b'){
+							forn(i,suma)cout << ' ';
+							suma = 0;
+						}else if(c!='!'){
+							forn(i,suma)cout << c;
+							suma = 0;
+						}else if(c=='!'){
+							cout << endl;
+							suma = 0;
+						}
+				}
+				cout << endl;
+		}
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }

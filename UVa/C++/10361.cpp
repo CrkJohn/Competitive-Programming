@@ -22,10 +22,10 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpi;
 typedef vector<vi> vvi;
-typedef long long ll;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef pair<ll,ll> pi64;
+typedef long long i64;
+typedef vector<i64> vi64;
+typedef vector<vi64> vvi64;
+typedef pair<i64, i64> pi64;
 typedef double ld;
 
 int main() {
@@ -33,8 +33,42 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+    in();
+    out();
+		int ntc;
+		cin >> ntc;
+		string l1,l2;
+    string s2,s3,s4,s5;
+    int pos1,pos2,pos3,pos4;
+		string st;
+		getline(cin,st);
+		forn(nt,ntc){
+			 getline(cin,l1);
+			 getline(cin,l2);
 
+        pos1=l1.find("<");
+        pos2=l1.find(">");
+        pos3=l1.find("<",pos1+1);
+        pos4=l1.find(">",pos2+1);
 
+        s2=l1.substr(pos1+1,pos2-pos1-1);
+        s3=l1.substr(pos2+1,pos3-pos2-1);
+        s4=l1.substr(pos3+1,pos4-pos3-1);
+        s5=l1.substr(pos4+1,l1.size()-pos4-1);
+
+        l1.erase(pos1,1);
+        l1.erase(pos2-1,1);
+        l1.erase(pos3-2,1);
+        l1.erase(pos4-3,1);
+
+        cout<<l1<<endl;
+
+        pos1=l2.find("...");
+        l2.erase(pos1,3);
+        l2.insert(pos1,s4+s3+s2+s5);
+
+        cout<<l2<<endl;
+		}
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }
