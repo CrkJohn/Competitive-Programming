@@ -1,1 +1,50 @@
-1 4 3 5
+                  .                     
+                 ...                    
+                .x x.                   
+               .  .  .                  
+              .........                 
+             .x       x.                
+            .  x     x  .               
+           ...xxx   xxx...              
+          .x .WW.x x.WW. x.             
+         .   .xxW . Wxx.   .            
+        ... . WxW...WxW . ...           
+       .x xx..WWWW WWWW..xx x.          
+      .  ..W.Wx  WWW  xW.W..  .         
+     ....xWWxWWx W W xWWxWWx....        
+    .x  .WWWWWWWW W WWWWWWWW.  x.       
+   .  x..x      WW WW      x..x  .      
+  ...x .. x     WWWWW     x .. x...     
+ .x .  xx xx    W   W    xx xx  . x.    
+.   ..x.....x           x.....x..   .   
+.. .x...   . x         x .   ...x. ...  
+xxx .. x. .. xx       xx .. .x .. xx x. 
+.W. xx   xxx ..x     x.. xxx   xx ...  .
+.W. ..x x.W. x. x   x .x .W.x x.. x x...
+.W.xx. . WW.    xx xx    .WW . .x x. . x
+.WWWW x..Wx..  x.....x  ..xW..x  .  x. x
+.x  WW .WWW.x.x .   . x.x.WWW. x...x   x
+  x WW..x xW.W  .. ..  W.Wx x.  . . x xx
+ xxWWxW. .WWx. .xxxxx. .xWW.  ...x. x...
+x.xWWWW.x.xWW x WWWWW x WWx...x ..   . x
+ WWW  xW.WWWWWxWW   WWxWWWW. .  xx. .. x
+ W W xWWxx   WWWW   WWWW  x.x..x.W xxx x
+  W WWWWx.x  W  W   W  W x W....W.W.W..x
+   WW  WWW x            WxW.W  WWxWxWW. 
+   WW  W WWxx           WWWx.  WWWxWWx..
+   WW   WWWx.x          W WW . W WWWWW.x
+   WW   W WWW x          WWW... WW   xW 
+   WW    WW WWxx         W xW x.WW  xWW 
+   WW    WWWWWx.x         WWWW WxW xWWW 
+   WW    W   WWW x        W  WWWWWWWW W 
+   WW        W WWxx          W      WW  
+   WW         WWWx.x                WW  
+   WW         W WWW x               WW  
+   WW          WW WWxx              WW  
+   WW          WWWWWx.x             WW  
+   WW          W   WWW x            WW  
+   WW              W WWxx           WW  
+   WW               WWWx.x          WW  
+   WW               W WWW x         WW  
+   WW                WW WWxx        WW  
+   WW                WWWWWx.x       WW  
