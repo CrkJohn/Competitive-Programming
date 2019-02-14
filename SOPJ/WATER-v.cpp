@@ -40,65 +40,67 @@ int dx[] = {-1,1,0,0};
 int dy[] = {0,0,-1,1};
 
 void bfs(pii src){
-	queue<pii> q;
-  q.push(src);
-  vis[src.fi][src.se] = 1;
+    queue<pii> q;
+    q.push(src);
+    vis[src.fi][src.se] = 1;
 	while(!q.empty()){
-			pii u = q.front(); q.pop();
-      forn(i,4){
-					int h = u.fi  + dx[i]  , k = u.se + dy[i];
-          if(g[u.fi][u.se]<=g[h][k] && (0<= h && h<n && 0<=k && k <m) && !vis[h][k]){
-							vis[h][k] = 1;
-							q.push({h,k});
-					}
+        pii u = q.front(); q.pop();
+        forn(i,4){
+                int h = u.fi  + dx[i]  , k = u.se + dy[i];
+                if(g[u.fi][u.se]<=g[h][k] && (0<= h && h<n && 0<=k && k <m) && !vis[h][k]){
+                        vis[h][k] = 1;
+                        q.push({h,k});
+                }
       }
 	}
 }
 
+int vis2[maxn][maxn];
+
+pii dfs( pii src , int len){
+    int i = src.fi , j = src.se;
+
+    return a;
+}
+
 
 int main() {
-    ios::sync_with_stdio(false);
+    /*ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-    int ntc;
+
+    */
     in();
+    int ntc;
     cin >> ntc;
-		forn(t,ntc){
-				cin >> n >> m;
-				forn(i,n){
-					forn(j,m){
-							cin >> g[i][j];
-					}
-				}
-				memset(vis,0,sizeof vis);
-				forn(i,n)if(!vis[0][i])bfs({0,i});
-				forn(i,n)if(!vis[i][0])bfs({i,0});
-				forn(i,n)if(!vis[n-1][i])bfs({n-1,i});
-				forn(i,n)if(!vis[i][m-1])bfs({i,m-1});
-
-				ll ans = 0;
-				forn(i,n){
-						forn(j,m){
-
-									if(vis[i][j] == 0){
-											int mini = 1e9;
-											forn(t,4){
-												int h = i + dx[t] , k = j + dy[t];
-												if((0<= h && h<n && 0<=k && k <m) && g[h][k]>g[i][j] ){
-														mini = min(g[h][k]-g[i][j],mini);
-										//				cout << (g[h][k]-g[i][j]) << " " << h <<" " <<  k <<   endl;
- 												}
-											}
-									g[i][j]+=mini;
-									//cout << endl;
-									ans+=mini;
-							}
-					}
-				}
-				cout << ans << endl;
-		}
-
+    forn(t,ntc){
+        cin >> n >> m;
+        forn(i,n){
+            forn(j,m){
+                cin >> g[i][j];
+            }
+        }
+        memset(vis,0,sizeof vis);
+        forn(i,m)if(!vis[0][i])bfs({0,i});
+        forn(i,n)if(!vis[i][0])bfs({i,0});
+        forn(i,m)if(!vis[n-1][i])bfs({n-1,i});
+        forn(i,n)if(!vis[i][m-1])bfs({i,m-1});
+        ll ans = 0;
+        cerr << " i : " << n << " j : " << m << endl;
+        memset(vis2,0, sizeof vis2);
+        forn(i,n){
+            forn(j,m){
+                if(vis[i][j] == 0 && !vis2[i][j]){
+                    pii path = dfs({i,j} ,1);
+                    cerr << " Path " << path.fi << " " << path.se << endl;
+                    ans+=(path.fi * path.se);
+                }
+            }
+            cerr << endl;
+        }
+        cout << ans << endl;
+    }
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }
