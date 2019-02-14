@@ -62,7 +62,7 @@ int main() {
     cout.precision(10);
     cout << fixed;
     int ntc;
-    //in();
+    in();
     cin >> ntc;
 		forn(t,ntc){
 				cin >> n >> m;
