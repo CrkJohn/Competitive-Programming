@@ -76,5 +76,4 @@ int main()
         //		fprintf(stderr,"%d %d\n",R,C);
         printf("%d\n",res);
     }
-    return 0;
 }
