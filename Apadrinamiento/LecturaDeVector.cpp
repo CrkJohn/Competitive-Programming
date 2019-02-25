@@ -42,7 +42,7 @@ int main() {
 		}
 
 		vector<int> vi;
-		for(int i = 0 ; i< 15 /* el limite tiene que ser menor al tamaño del arreglo declarado anteriormente */ ; i++){
+		for(int i = 0 ; i< 15  ; i++){
 				int elemento;
 				cin >> elemento;
 				vi.push_back(elemento);
