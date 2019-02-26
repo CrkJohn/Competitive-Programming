@@ -28,17 +28,39 @@ typedef vector<vll> vvll;
 typedef pair<ll,ll> pi64;
 typedef double ld;
 
-ostream & operator<< (ostream &out, const pii &c){
-	out << "x =" << c.fi << ",y = " << c.se << ";";
-    return out;
-}
+
+int maxn = 30;
+vector< string > g;
+
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+    in();
+    int w , h ;
+    string str;
+    while(cin >> w >> h ,w+h!=0){
+			getline(cin,str);
+			g.assign(h+1,vector<string>());
+			pii src, tgt;
+			forn(i,h){
+					getline(cin,str);
+					g[i] = str;
+ 					forn(j,w){
+							char c = g[i][j]
+							if(c  == 'S') src = pii(i,j);
+							if(c  == 'D') tgt = pii(i,j);
+					}
+			}
 
+      for( auto st : g){
+			  cerr << st << endl;
+      }
+			getline(cin,str);
+
+    }
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;

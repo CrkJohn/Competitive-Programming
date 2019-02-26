@@ -29,15 +29,31 @@ typedef pair<ll,ll> pi64;
 typedef double ld;
 
 ostream & operator<< (ostream &out, const pii &c){
-	out << "x =" << c.fi << ",y = " << c.se << ";";
+	out << "x =" << c.fi << ",y = " << c.se << " \n";
     return out;
 }
+
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
+
+
+		//Declaracion de un arreglo  estatico
+		int arreglo[15]; // arreglo de 15 elementos;
+		for(int i = 0 ; i< 15 /* el limite tiene que ser menor al tamaño del arreglo declarado anteriormente */ ; i++){
+				cin >> arreglo[i];
+		}
+
+		vector<int> vi;
+		for(int i = 0 ; i< 15 /* el limite tiene que ser menor al tamaño del arreglo declarado anteriormente */ ; i++){
+				int elemento;
+				cin >> elemento;
+				vi.push_back(elemento);
+		}
+
 
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

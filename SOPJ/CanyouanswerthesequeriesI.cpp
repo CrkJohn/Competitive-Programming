@@ -33,12 +33,61 @@ ostream & operator<< (ostream &out, const pii &c){
     return out;
 }
 
+
+const int maxn = 10000;
+
+int sgt[4*maxn];
+int input[maxn];
+
+
+int op(const int &n, const int &m){
+	return n+m;
+}
+
+void build(int l , int  h , int i){
+	//cout << " l : " << l << " h : " << h << " i : " << i << endl;
+	if(l == h){
+			sgt[i] = input[l];
+			return;
+	}
+	int mid = (l+h)/2;
+	build(l,mid,i*2+1);
+	build(mid+1,h,i*2+2);
+	sgt[i] = op(sgt[2*i+1], sgt[2*i+2]);
+}
+
+
+int rmq(int l , int h){
+
+
+}
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-
+    int n;
+    in();
+    cin >> n;
+    input[n];
+    forn(i,n){
+    	cin >> input[i];
+    }
+    build(0,n-1,0);
+    forn(i,2*n){
+			cout << sgt[i]  <<" ";
+    }
+    cout << endl;
+		int q;
+		cin >> q;
+		forn(query,q){
+			int  x,y;
+			cin >> x>> y;
+      x--; y--;
+			cout << rmq(x,y) << endl;
+		}
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
