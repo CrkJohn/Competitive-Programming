@@ -37,6 +37,7 @@ vector< priority_queue<int,vector<int>, greater<int> > > G;
 
 int bfs(){
     queue< ii > q;
+    cerr << "R : " << R  << " C : " << C << endl;
     int vis[R][C];
     memset(vis,0,sizeof vis);
     int maxForc,c = 0;
@@ -47,8 +48,14 @@ int bfs(){
         if(G[r].size()>0){
                 maxR = G[r].top();
                 G[r].pop();
-                if(r+1 < R)q.push({r+1,maxR});
-                cnt++;
+                if(r+1 <= R){
+                    q.push({r+1,maxR});
+                    cnt++;
+                }else{
+
+                    cerr  << " jay " << endl;
+                }
+                forn(i,maxR)vis[r][i] = r+1;
                 //cout << ii(r,maxR) << " : ";
         }else continue;
         while(!q.empty()){
@@ -57,19 +64,19 @@ int bfs(){
             if(G[u.fi].size()>0){
                 maxR =  G[u.fi].top();
                 if(maxR < u.se){
-                    if(u.fi+1 < R)q.push({u.fi+1,u.se});
+                    if(u.fi+2 < R)q.push({u.fi+1,u.se});
                     continue;
                 }else{
                     G[u.fi].pop();
-                    fore(i,maxR,u.se)vis[u.fi][i] = 1;
-                    if(u.fi+1 < R){
+                    fore(i,maxR,u.se)vis[u.fi][i] = r+1;
+                    if(u.fi+1 <= R){
                         q.push({u.fi+1,maxR});
                     }else if(u.fi == R-1){
                         cerr << "ahi" << endl;
                     }
                 }
             }else{
-                if(u.fi+1 < R)q.push({u.fi+1,u.se});
+                if(u.fi+1 <= R)q.push({u.fi+1,u.se});
             }
 
         }
@@ -80,9 +87,10 @@ int bfs(){
 
 
 
+
 int main(){
-    //in();//freopen quitar antes de un envio
-    //out();//freopen quitar antes de un envio
+    in();//freopen quitar antes de un envio
+    out();//freopen quitar antes de un envio
     err();
     ios::sync_with_stdio(0);
   	cin.tie(0);
@@ -112,3 +120,31 @@ int main(){
 }
 
 
+/*
+1 6
+2 19
+3 4
+4 8
+5 12
+6 20
+7 11
+8 14
+9 11
+10 23
+11 9
+12 8
+13 1
+14 7
+15 22
+16 1
+17 16
+18 2
+19 24
+20 15
+21 8
+22 17
+23 17
+0 0
+-1 -1
+
+*/
