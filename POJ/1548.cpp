@@ -47,7 +47,7 @@ int bfs(){
         if(G[r].size()>0){
                 maxR = G[r].top();
                 G[r].pop();
-                q.push({r,maxR});
+                if(r+1 < R)q.push({r+1,maxR});
                 cnt++;
                 //cout << ii(r,maxR) << " : ";
         }else continue;
@@ -81,7 +81,7 @@ int bfs(){
 
 
 int main(){
-    in();//freopen quitar antes de un envio
+    //in();//freopen quitar antes de un envio
     //out();//freopen quitar antes de un envio
     err();
     ios::sync_with_stdio(0);
