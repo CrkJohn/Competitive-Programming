@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+
 #define fi first
 #define se second
 #define pb push_back
@@ -12,7 +13,7 @@
 #define ford(i,n) for(int i=(int)(n)-1;i>=0;--i)
 #define fore(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
 #define in() freopen("in.txt","r",stdin)
-#define out() freopen("out.txr","w",stdout)
+#define out() freopen("out.txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
 
 using namespace std;
@@ -24,7 +25,7 @@ typedef vector<vii> vvii;
 typedef long long large;
 
 ostream & operator<< (ostream &out, const ii &c){
-	out << "x =" << c.fi << ",y = " << c.se << ";";
+	out << "{" << c.fi << "," << c.se << "} ";
     return out;
 }
 
@@ -36,7 +37,6 @@ vector< priority_queue<int,vector<int>, greater<int> > > G;
 
 int bfs(){
     queue< ii > q;
-    q.push(ii(0,0));
     int vis[R][C];
     memset(vis,0,sizeof vis);
     int maxForc,c = 0;
@@ -49,9 +49,11 @@ int bfs(){
                 G[r].pop();
                 q.push({r,maxR});
                 cnt++;
+                //cout << ii(r,maxR) << " : ";
         }else continue;
         while(!q.empty()){
             ii u = q.front(); q.pop();
+            cerr << u;
             if(G[u.fi].size()>0){
                 maxR =  G[u.fi].top();
                 if(maxR < u.se){
@@ -63,13 +65,15 @@ int bfs(){
                     if(u.fi+1 < R){
                         q.push({u.fi+1,maxR});
                     }else if(u.fi == R-1){
-                        cout << "ahi" << endl;
+                        cerr << "ahi" << endl;
                     }
                 }
             }else{
                 if(u.fi+1 < R)q.push({u.fi+1,u.se});
             }
+
         }
+        cerr << endl;
     }
     return cnt;
 }
@@ -79,10 +83,12 @@ int bfs(){
 int main(){
     in();//freopen quitar antes de un envio
     //out();//freopen quitar antes de un envio
+    err();
     ios::sync_with_stdio(0);
   	cin.tie(0);
   	cout << fixed;
   	cout.precision(4);
+    G.assign(26,  priority_queue<int,vector<int>, greater<int> >());
     while(1){
         int r,c;
         cin >> r >> c;
