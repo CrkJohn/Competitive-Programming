@@ -32,7 +32,7 @@ ostream & operator<< (ostream &out, const ii &c){
 
 int R,C;
 
-vector< priority_queue<int,vector<int>, greater<int> > > G;
+vector< priority_queue<int,vector<int>, less<int> > > G;
 
 
 int bfs(){
@@ -51,12 +51,7 @@ int bfs(){
                 if(r+1 <= R){
                     q.push({r+1,maxR});
                     cnt++;
-                }else{
-
-                    cerr  << " jay " << endl;
                 }
-                forn(i,maxR)vis[r][i] = r+1;
-                //cout << ii(r,maxR) << " : ";
         }else continue;
         while(!q.empty()){
             ii u = q.front(); q.pop();
@@ -64,15 +59,15 @@ int bfs(){
             if(G[u.fi].size()>0){
                 maxR =  G[u.fi].top();
                 if(maxR < u.se){
-                    if(u.fi+2 < R)q.push({u.fi+1,u.se});
+                    if(u.fi+1 < R)q.push({u.fi+1,u.se});
                     continue;
                 }else{
                     G[u.fi].pop();
-                    fore(i,maxR,u.se)vis[u.fi][i] = r+1;
+                    while(G[u.fi].top() >= u.se && G[u.fi].size()>0){
+                            G[u.fi].pop();
+                    }
                     if(u.fi+1 <= R){
                         q.push({u.fi+1,maxR});
-                    }else if(u.fi == R-1){
-                        cerr << "ahi" << endl;
                     }
                 }
             }else{
@@ -89,20 +84,20 @@ int bfs(){
 
 
 int main(){
-    in();//freopen quitar antes de un envio
-    out();//freopen quitar antes de un envio
-    err();
+    //in();//freopen quitar antes de un envio
+    //out();//freopen quitar antes de un envio
+    //err();
     ios::sync_with_stdio(0);
   	cin.tie(0);
   	cout << fixed;
   	cout.precision(4);
-    G.assign(26,  priority_queue<int,vector<int>, greater<int> >());
+    G.assign(26,  priority_queue<int,vector<int>, less<int> >());
     while(1){
         int r,c;
         cin >> r >> c;
         if(r== 0 && c == 0){
             cout << bfs() << endl;
-            G.assign(26,  priority_queue<int,vector<int>, greater<int> >());
+            G.assign(26,  priority_queue<int,vector<int>, less<int> >());
             R  =  C = -1e9;
         }else if(r==-1 && c == -1){
             break;
@@ -120,31 +115,3 @@ int main(){
 }
 
 
-/*
-1 6
-2 19
-3 4
-4 8
-5 12
-6 20
-7 11
-8 14
-9 11
-10 23
-11 9
-12 8
-13 1
-14 7
-15 22
-16 1
-17 16
-18 2
-19 24
-20 15
-21 8
-22 17
-23 17
-0 0
--1 -1
-
-*/
