@@ -34,12 +34,51 @@ ostream & operator<< (ostream &out, const pii &c){
     return out;
 }
 
+struct vec{
+    
+    double x, y, z;
+
+    vec (double X = 0  , double Y = 0 , double Z = 0){
+        x = X;
+        y = Y;
+        z = Z;
+    }
+
+    vec operator + (const vec a ) const {
+        return vec(x+ a.x, y + a.y , z + a.z);
+    }
+
+    vec operator -(const vec a ) const {
+        return vec(x- a.x, y - a.y , z - a.z);
+    }
+
+    vec operator *(const  double k){return vec(x*k , y*k , z*k);}
+
+    vec operator *(const  vec a){
+        return  vec(y* a.z -z * a.y , 
+                    z* a.x - x * a.z,
+                    x * a.y - y * a.x);
+    }
+
+    double dot(const vec a ) const {
+        return x * a.x + y * a.y + z * a.z;
+    }
+
+};
+
+ostream & operator<< (ostream &out, const vec &c){
+	out << "{" << c.x << ";" << c.y << ";" << c.y << "}" << endl;
+    return out;
+}
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cout.precision(10);
+    cout.precision(1);
     cout << fixed;
 
+    cout << (vec(1,2,3).dot(vec(4,15,6)*(2-1*1))) << endl;
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;

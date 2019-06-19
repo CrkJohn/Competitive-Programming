@@ -11,7 +11,6 @@
 #define for1(i, n) for (int i = 1; i <= (int)(n); ++i)
 #define ford(i, n) for (int i = (int)(n) - 1; i >= 0; --i)
 #define fore(i, a, b) for (int i = (int)(a); i <= (int)(b); ++i)
-#define pb push_back
 #define in() freopen("in.txt","r",stdin)
 #define out() freopen("out.txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
@@ -35,12 +34,29 @@ ostream & operator<< (ostream &out, const pii &c){
 }
 
 int main() {
+    //in();
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
     cout << fixed;
-
-
+    string MX;
+    forn(i,101) MX += 'Z';
+    int ntc; 
+    cin >> ntc;
+    forn(c,ntc){
+        string sequence;
+        cin >> sequence;
+        int lon = si(sequence);
+        string ans = sequence + sequence;
+        vector<string> rst;
+        forn(i,lon){
+            rst.pb(ans.substr(i,lon));
+        }
+        sort(all(rst));
+        cout << rst[0] << endl;
+            
+    }
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
     return 0;
 }
+
