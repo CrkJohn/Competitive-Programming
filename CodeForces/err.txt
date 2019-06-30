@@ -1,2 +1,1 @@
-terminate called after throwing an instance of 'std::invalid_argument'
-  what():  stoi
+Time elapsed: 0.002079 s.

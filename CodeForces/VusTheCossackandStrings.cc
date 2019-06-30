@@ -5,6 +5,7 @@
 #define fi first
 #define se second
 #define pb push_back
+#define len(a) ((int)a.size())
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define forn(i, n) for (int i = 0; i < (int)(n); ++i)
@@ -39,15 +40,34 @@ int main() {
     cout.tie(0);
     cout.precision(10);
     cout << fixed;
+
 #ifdef LOCAL
     in();
     err();
 #endif
+    string a,b;
+    cin >> a >> b;
+    int cntb = 0, cnta = 0;
+    forn(i,len(b)){
+        if(b[i]== '1')cntb++;
+        if(a[i]== '1')cnta++;
+    }
+    cerr << "String a " << a << " Stringb " << b << endl;
+    cerr << "countb " <<  cntb << " Count a " << cnta <<endl;
+    int ans = 0;
+    if(cntb%2 == cnta%2 )ans++;
+    fore(i,1,len(a)-len(b)){
+        //cerr << " a "<< a[i-1] <<" "<< a[len(b)+i-1] << endl;
+        cnta  +=  ((a[len(b)+i-1]-'0')-(a[i-1] == '1'));
+        if(cntb%2 == cnta%2 )ans++;
+        //cerr <<"i :" << i << " " <<  a.substr(i,len(b)) <<" " << cnta <<  endl;
+    }  
+    cout << ans  << endl;
+    
 
-#ifdef LOCAL
+
+
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
-#endif
-
     return 0;
 
 } 

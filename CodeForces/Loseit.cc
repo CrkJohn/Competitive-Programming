@@ -43,6 +43,24 @@ int main() {
     in();
     err();
 #endif
+    int n;
+    cin >> n;
+    map<int,int> goodArray;
+    goodArray[4] = 1 , goodArray[8] = 2 , goodArray[15] = 3;
+    goodArray[16] = 4 , goodArray[23] = 5, goodArray[42] = 6;
+    int cnt[] = {0,0,0,0,0,0,0};
+    forn(i,n){
+        int num; cin >> num;
+        int value = goodArray[num];
+        if(value){
+            if(value == 1)cnt[value]++;
+            else if(cnt[value-1]>0){
+                cnt[value]++;
+                cnt[value-1]--;
+            }
+        }
+    }
+    cout << n - cnt[6]*6 << endl;
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

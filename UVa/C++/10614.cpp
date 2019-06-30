@@ -72,12 +72,15 @@ ostream & operator<< (ostream &out, const vec &c){
 }
 
 
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(1);
     cout << fixed;
 
+    
     cout << (vec(1,2,3).dot(vec(4,15,6)*(2-1*1))) << endl;
 
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

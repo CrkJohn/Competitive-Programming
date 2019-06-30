@@ -39,15 +39,18 @@ int main() {
     cout.tie(0);
     cout.precision(10);
     cout << fixed;
+
 #ifdef LOCAL
     in();
     err();
 #endif
-
+    int n,m,k;
+    while(cin >> n  >> m >> k){
+        cout << (( min(k,m)>=n) ? "Yes" : "No")<< endl;  
+    }
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 #endif
-
     return 0;
 
 } 

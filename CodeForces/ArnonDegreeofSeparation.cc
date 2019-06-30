@@ -27,27 +27,65 @@ typedef vector<i64> vi64;
 typedef vector<vi64> vvi64;
 typedef pair<i64, i64> pi64;
 typedef double ld;
+const int MAXN = 2*1e3  + 50;
 
-set<string> st;
-int n,k;
-   
-int sol = 0;
+int vis[MAXN];
+
+vvi g;
+
+
+int bfs(int src){
+    queue<int> q;
+    q.push(src);
+    memset(vis, 0, sizeof vis);
+    vis[1] = 1;
+    int solve = -1e9;
+    while(!q.empty()){
+        int u = q.front();q.pop();
+        for(int v : g[u]){
+            if(!vis[v]){
+                q.push(v);
+                vis[v] = vis[u] + 1;
+                solve = max(solve,vis[v]);
+            }
+        }
+    }
+    return solve;
+}
+
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cout.tie(0);
     cout.precision(10);
     cout << fixed;
 #ifdef LOCAL
     in();
-    err();
 #endif
-
-#ifdef LOCAL
+    int   n,m;
+    cin >> n >> m;
+    g.assign(n+1,vi());
+    forn(i,m){
+        int u , v;
+        cin >> u >> v;
+        g[u].pb(v);
+    }
+    int solve = bfs(1);
+    int r = 1;
+    fore(i,1,n){
+        if(!vis[i]){
+            r = 0;
+            //cerr << " i : " <<  i << endl;
+            break; 
+        }
+    }
+    if(!r || solve<0)cout << "=[" << endl;
+    else{
+        cout << "=] " << solve-1 << endl;
+    }
+    
+    
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
-#endif
-
     return 0;
 
 } 
