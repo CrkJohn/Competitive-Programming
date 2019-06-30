@@ -43,19 +43,43 @@ int main() {
     in();
     err();
 #endif
-    int q;
-    cin >> q ;
-    forn(i,q){
-        int n  , m , t;
-        cin >> n >> m >> t;
-        if (  m == n && t == n) cout << 1 << endl;
-        else if(m  + t == n) cout << n << endl;
-        else{
-            int mini = min(m,t);
-            if(n-mini>0 && t > 0){
-                cout << mini +1 << endl;
-            }
+    int n;
+    cin >> n;
+    string  a;
+    cin >> a;
+    vvi voc;
+    voc.assign(27,vi());
+    forn(i,n){
+        voc[ a[i]- 'a' ].pb(i);
+        //cout << a[i]-'a'  << " "  << a[i] << " " << i << endl;
+    }
+    /*
+    int i = 0;
+    forn(i,26){
+        char z = i+'a';
+        cout << z << " ";
+        for(int t : voc[i]){
+            cout << t << " ";
         }
+        cout << endl;
+    }
+    cout << endl;
+     */
+    int m;
+    cin >> m;
+    forn(i,m){
+        string b;
+        cin >> b;
+        //cout << b << endl;
+        int vocabulary[26];
+        memset(vocabulary, 0 , sizeof vocabulary);
+        int res = -1e9;
+       
+        for(auto c  : b){
+        //    cout <<" kha c " <<  c   << " " <<  voc[c - 'a'].size() << endl;
+            res = max(voc[c - 'a'][vocabulary[c-'a']++],res);
+        }
+        cout << res+1 << endl;
     }
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
