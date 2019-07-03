@@ -14,6 +14,9 @@
 #define in() freopen("in.txt","r",stdin)
 #define out() freopen("out.txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
+#define cls(a,val) memset(a,val,sizeof a)
+#define INF  1e9;
+
 
 
 using namespace std;
@@ -22,10 +25,10 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpi;
 typedef vector<vi> vvi;
-typedef long long i64;
-typedef vector<i64> vi64;
-typedef vector<vi64> vvi64;
-typedef pair<i64, i64> pi64;
+typedef long long ll;
+typedef vector<ll> vll;
+typedef vector<vll> vvll;
+typedef pair<ll, ll> pll;
 typedef double ld;
 
 template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
