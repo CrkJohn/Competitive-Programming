@@ -28,10 +28,11 @@ typedef vector<vi64> vvi64;
 typedef pair<i64, i64> pi64;
 typedef double ld;
 
-set<string> st;
-int n,k;
-   
-int sol = 0;
+template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
+    os << "[ ";for(auto e : v) os << e << " ";
+    return os << "]";
+}
+ 
 
 int main() {
     ios::sync_with_stdio(false);
@@ -43,25 +44,30 @@ int main() {
     in();
     err();
 #endif
-    int q;
-	cin >> q;
-	i64 n,s,t;
-	while(q--){
-		cin >> n >> s >> t;
-		if(n==s && n== t){
-			cout << 1 << endl;
-		}
-		else{
-			cout << min(max(n-s,n-t)+1,n) << endl; 
-		}
-		
-	}
+    int n,m,a,b;
+    //10 3 5 1
+    while(cin >> n>>m>>a>>b){
+        if(n>m){
+            int x,tmp2,tmp  = (n/m)*b;
+            cerr << " n % m " << n%m << endl;
+            if(n%m>0){
+               x = (n-(m*(n/m)));
+               cerr << "x " << x << endl;            
+               tmp2 = min(x*a,b);
+               tmp+=tmp2; 
+            }
+            int totalN = n*a;
+            cerr << tmp << " " << totalN << endl;
+            cout << min(tmp,totalN) << endl;
+        }else{
+            cout << min(b,a*n) << endl;
+        }
+    }
+   
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 #endif
-
     return 0;
-
 } 
 
 

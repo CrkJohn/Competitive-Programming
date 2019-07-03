@@ -1,1 +1,17 @@
-Time elapsed: 0.002084 s.
+ n % m 0
+5 10
+ n % m 4
+x 4
+13 1000
+ n % m 0
+6 6
+ n % m 1
+x 1
+4 50
+ n % m 1
+x 1
+8 10
+ n % m 1
+x 1
+3346 7632
+Time elapsed: 0.003334 s.
