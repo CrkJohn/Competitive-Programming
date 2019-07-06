@@ -11,6 +11,8 @@
 
 using namespace std;
 
+
+
 struct dragon{
 	 int f,bonus;
 	 bool operator <(const dragon other)const{
