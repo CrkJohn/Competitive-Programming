@@ -35,7 +35,42 @@ template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
     os << "[ ";for(auto e : v) os << e << " ";
     return os << "]";
 }
- 
+
+struct sgt{
+    int candy,sum;
+    
+};
+
+const int maxn = 1e5 + 10;
+
+int arr[maxn];
+sgt segm[4* maxn];
+
+void csgt(int p , int l , int r){
+    if( l == r){
+        segm[p].sum = arr[l];
+        segm[p].candy = 0;
+        return;
+    }
+    int mid = (l+r)>>1;
+    csgt(p<<1,l,mid);
+    csgt(p<<1|1,mid+1,r);
+    segm[p].sum = (segm[p<<1].sum%10 + segm[p<<1|1].sum%10);
+    segm[p].candy = (segm[p].sum >= 10 ? 1 : 0) +  segm[p<<1].candy + segm[p<<1|1].candy;
+}
+
+sgt query(int p,int l,int r,int ql, int qr){
+    if(l>qr || ql>r)return {0,0};
+    if(ql<= l && r <=qr)return segm[p];
+    int mid  = (l+r)>>1;
+    sgt  a = query(p<<1,l, mid, ql,qr);
+    sgt  b = query(p<<1|1,mid+1,r,ql,qr);
+    sgt res;  res.sum = a.sum%10  + b.sum%10;
+    res.candy = (res.sum >= 10 ? 1 : 0) +  a.candy + b.candy;
+    return res;
+}
+
+
 
 int main() {
     ios::sync_with_stdio(false);
@@ -49,14 +84,15 @@ int main() {
 #endif
     int n;
     cin >> n;
-    cin >> arr[n];
-    forn(i,n) cin >> arr[i];
-    csgt();
+    arr[n+1];
+    fore(i,1,n) cin >> arr[i];
+    csgt(1,1,n);
     int q; 
     cin >> q;
-    forn(query,q){
+    forn(qry,q){
         int ql,qr;
-        cout << query(1,1,n,ql,qr) << endl;
+        cin >> ql >> qr;
+        cout << query(1,1,n,ql,qr).candy << endl;
     }
 
 
