@@ -36,21 +36,28 @@ template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
     return os << "]";
 }
 
-const double PI = acos(-1); 
+
+const double PI = acos(-1);
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
-
+ 
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(0);
-    cout.precision(10);
+    cout.precision(9);
     cout << fixed;
 #ifdef LOCAL
     in();
     err();
 #endif
+    int V;
+    double s;
+    cin >> V >> s;
+    double alpha  = 360.0/V , beta = (180 - 360.0/V)/2;
+    double r =   (s*sin( DEG_to_RAD(beta))/ sin(DEG_to_RAD(alpha)));
+    cout <<  PI * r * r << endl;
  
 
 #ifdef LOCAL

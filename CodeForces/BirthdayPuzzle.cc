@@ -51,7 +51,24 @@ int main() {
     in();
     err();
 #endif
- 
+    int n; 
+    cin >> n;
+    int a[n];
+    ll sum  = 0 ,sum2 = 0;
+    forn(i,n){
+        cin >> a[i];
+        sum2+=a[i];
+    }
+    ll tmp = a[0];
+    forn(i,n){
+        if(i>0){
+            tmp|=a[i];
+        }
+        fore(j,i+1,n-1){
+            sum += (a[i]|a[j]);
+        }
+    }
+    cout << tmp + sum  + sum2<< endl;
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
