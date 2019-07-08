@@ -39,10 +39,8 @@ class Graph:
 
 
 def main():
-    line = stdin.readline().strip().split()
+    line = stdin.readline().strip()
     while line:        
-        
-"""
         connections, queries = [int(x) for x in line.split()]
         graph = Graph(28,False)
         for addEges in range(connections):
@@ -54,7 +52,6 @@ def main():
             for i in range(len(source)):
                 ok &= graph.bfs(source[i],target[i]) 
             print("yes" if ok else "no")
-        """
         line = stdin.readline().strip().split()
         
 main()  
