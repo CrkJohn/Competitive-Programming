@@ -16,7 +16,6 @@
 #define err() freopen("err.txt","w",stderr)
 #define cls(a,val) memset(a,val,sizeof a)
 #define INF  1e9;
-#define len(a) ((int)a.size())
 
 
 
@@ -52,7 +51,20 @@ int main() {
     in();
     err();
 #endif
- 
+    vi a(3);
+    forn(i,3)cin >>a[i];
+    sort(all(a));
+    int d;
+    cin >> d;
+    int t = abs(a[1]-a[0]) , t2 = abs(a[2]-a[1]);
+    int ans = 0;
+    if(t<d)ans+=(d-t);
+    else ans+=0;
+    if(t2<d)ans+=(d-t2);
+    else ans+=0;
+    cout << ans << endl;
+    
+
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

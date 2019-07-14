@@ -52,7 +52,43 @@ int main() {
     in();
     err();
 #endif
- 
+    int q;
+    cin >> q;
+    string s,t,p;
+        
+    getline(cin,s);
+    forn(qq,q){
+        getline(cin,s);
+        getline(cin,t);
+        getline(cin,p);
+        int memo[26];
+        cls(memo,0);
+        forn(i,len(p)){
+            memo[p[i]-'a']++;
+        }
+        int j = 0;
+        int ok = 1;
+        string ans = "";
+        //cerr << s   <<" " << t << " " << p << endl;
+        forn(i,len(t)){
+            if(len(s)==j){
+                if(memo[t[i]-'a']==0){
+                    ok  = 0;
+                    break;
+                }
+                memo[t[i]-'a']--;
+            }else{
+                if(s[j]==t[i]){
+                    j++;
+                    ans+=s[j];
+                }else if(s[j]!=t[i] && memo[t[i]-'a']==0)ok = 0 ;
+                else if(s[j]!=t[i] && memo[t[i]-'a']>0){
+                    memo[t[i]-'a']--;
+                }
+            }
+        }
+        cout << ( ok && j ==len(s) ? "YES" : "NO"  ) << endl;
+    }
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

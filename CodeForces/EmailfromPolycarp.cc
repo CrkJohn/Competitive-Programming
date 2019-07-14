@@ -15,7 +15,7 @@
 #define out(x) freopen(#x".txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
 #define cls(a,val) memset(a,val,sizeof a)
-#define INF  1e9;
+#define INF  1e9
 #define len(a) ((int)a.size())
 
 
@@ -41,6 +41,24 @@ const double PI = acos(-1);
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
 
+vector< pair<char,int> > gen(string a){
+    vector< pair <char,int> > res;
+    char def = a[0];    
+    int cnt = 1;
+    fore(i,1,len(a)-1){
+        if(a[i] == def){
+            cnt++;
+        }else{
+            res.pb(mp(def,cnt));
+            def = a[i];
+            cnt = 1;
+        }
+    }
+    res.pb(mp(def,cnt));
+    return res;
+} 
+
+
 
 int main() {
     ios::sync_with_stdio(false);
@@ -52,8 +70,22 @@ int main() {
     in();
     err();
 #endif
- 
-
+    int n;
+    cin >> n;
+    string s;
+    getline(cin,s); 
+    string t;    
+    forn(i,n){
+        getline(cin,s);
+        getline(cin,t);
+        auto sv = gen(s);
+        auto st = gen(t);
+        int ok = (len(sv) == len(st));
+        for(int i = 0 ; i < len(st) && ok ; i++){ 
+            ok &=(st[i].fi == sv[i].fi && st[i].se>=sv[i].se);
+        }
+        cout << (ok ? "YES" : "NO") << endl;
+    }
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 #endif
