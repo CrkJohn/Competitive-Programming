@@ -1,1 +1,5 @@
-Time elapsed: 0.002816 s.
+ i 1 [ u :1 l : 0 c:  0]
+ i 2 [ u :2 l : 43 c:  14]
+ i 3 [ u :3 l : 21 c:  30]
+ i 4 [ u :4 l : 48 c:  88]
+Time elapsed: 0.0023 s.

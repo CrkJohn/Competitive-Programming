@@ -15,7 +15,7 @@
 #define out(x) freopen(#x".txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
 #define cls(a,val) memset(a,val,sizeof a)
-#define INF  1e9;
+#define INF  1e12
 #define len(a) ((int)a.size())
 
 
@@ -42,61 +42,62 @@ double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
 
 
-struct node {
-    int u, v , l , c;
-    node(int U , int  V, int L ,int C){
+struct edge {
+    ll u , l , c;
+    edge(ll U, ll L ,ll C){
         u = U;
-        v = V;
         l = L;
         c = C;
     }
-    bool operator <(const node &other)const {
-        if (l== other.l)
-            return c < other.c;
-        return l < other.l;
+    bool operator <(const edge &o)const {
+        if (l == o.l)
+            return c > o.c;
+        return l > o.l;
     }
 };
-const int SZ = 1e5;
-int r[SZ],p[SZ],sizeSet[SZ],componentes;
 
-void makeSet(int N){
-    int i;
-    r[N];p[N];sizeSet[N];
-    memset(r,0,sizeof r);
-    memset(sizeSet,-1,sizeof sizeSet);
-    forn(i,N+2)p[i]=i;
-    componentes = N;
-}
-int findSet(int x){
-       if (x!=p[x])p[x] = findSet(p[x]);
-        return p[x];
+ostream& operator<<(ostream& os, edge e) {
+    os << "[ u :" << e.u << " l : " << e.l << " c:  " << e.c;
+    return os << "]";
 }
 
-bool isSameSet(int x,int y){
-        return findSet(x)==findSet(y);
+
+const int SZ = 1e5 + 100;
+
+
+int isBest(const edge &a, const edge &b) {
+  if (b < a) return 1;
+  if (a < b) return -1; // greater
+  return 0;
 }
 
-void unionSet(int xx,int yy){
-    int x = findSet(xx);
-    int y = findSet(yy);
-    if (sizeSet[x]==-1) sizeSet[x] =1 ;
-    if (sizeSet[y]==-1) sizeSet[y] = 1;
-    if (!isSameSet(x,y)){
-        componentes--;
-        if (r[x] > r[y]){
-            p[y] = x;
-            sizeSet[x]+=sizeSet[y];
-        }
-        else{
-            p[x] = p[y];
-            sizeSet[y]+=sizeSet[x];
-            if (r[x]==r[y])r[y]++;
+vector< vector<edge> > nodes;
+vector<edge> best;
+
+void dijkstra(int n){
+    priority_queue<edge, vector<edge>> pq;
+    forn(i,n+1)best.pb(edge(i,INF,INF)); 
+    best[1] = edge(1,0,0);
+    pq.push(edge(1,0,0));
+    while (!pq.empty()){
+        edge src=pq.top(); pq.pop();
+        if (isBest(src,best[src.u])==1) continue;
+        for(edge v : nodes[src.u]){
+            edge nw = {v.u, src.l + v.l, v.c};
+            if ( isBest(nw,best[v.u]) == -1){
+                best[v.u]= nw;
+                pq.push(nw);
+            }
         }
     }
-    return;
-}
 
-vector<node> nodes;
+    ll ans = 0;
+    fore(i,1,n){
+        ans+=best[i].c;
+    }
+    cout << ans << endl;
+
+}
 
 
 int main() {
@@ -108,25 +109,20 @@ int main() {
 #ifdef LOCAL
     in();
     err();
+    //out(test1);
 #endif  
     int n,m;
     cin >>n >> m;
+    nodes.assign(n+1,vector<edge>());
     forn(i,m){
-        int u,v,l,c;
+        ll u,v,l,c;
         cin >> u >> v >> l >> c;
-        nodes.pb(node(u,v,l,c));
+        nodes[u].pb(edge(v,l,c));
+        nodes[v].pb(edge(u,l,c));    
     }
-    sort(all(nodes));
-    int mst = 0;
-    makeSet(n);
-    for(node nd : nodes){
-        if(!isSameSet(nd.u,nd.v)){
-            mst+=nd.c;
-            unionSet(nd.u,nd.v);
-        }
-    }
-    cout << mst << endl;
-
+    dijkstra(n);
+    
+    
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 #endif

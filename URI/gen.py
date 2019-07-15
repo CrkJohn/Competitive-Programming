@@ -9,9 +9,13 @@ def randomGraphW(n,m,directed=True):
                              seed=random.getrandbits(20))
     G = [[] for i in range(n)]
     W = [[] for i in range(n)]
+    
     for i,j in nxG.edges:
+        print(i+1,j+1, end = " ")
         G[i].append(j)
-        w = random.randrange(1,20)
+        w = random.randrange(1,100)
+        c = random.randrange(1,100)
+        print(w,c)
         W[i].append(w)
         if not directed:
             G[j].append(i)
@@ -33,5 +37,7 @@ def showGraph(G, W=None):
         nx.draw_networkx_edge_labels(nxG, pos, edge_labels=labels)
     plt.show()
     return
-
-G,W = randomGraphW(15,18, directed=False)
+n = 4
+m = 9
+print(n,m)
+G,W = randomGraphW(n,m, directed=False)
