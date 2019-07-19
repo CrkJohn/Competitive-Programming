@@ -15,10 +15,7 @@
 #define out(x) freopen(#x".txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
 #define cls(a,val) memset(a,val,sizeof a)
-#define eps 1e-9
-#define mod 1000000007
-#define INf 3000000000000000007ll
-
+#define INF  1e9;
 #define len(a) ((int)a.size())
 
 
@@ -44,8 +41,6 @@ template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
 const double PI = acos(-1); 
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
-double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2) + pow(y-y_,2));}
-int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
 
 
 int main() {
@@ -56,9 +51,35 @@ int main() {
     cout << fixed;
 #ifdef LOCAL
     in();
- //   err();
+    err();
 #endif
- 
+    int ntc;
+    cin >> ntc;
+    string s;
+    forn(ctn,ntc){
+        int r,c;
+        cin >> r >> c;
+        int cr[r],cc[c];
+        cls(cr,0);
+        cls(cc,0);
+        getline(cin,s);
+        vs mat;
+        forn(row,r){
+            getline(cin,s);
+            forn(col,c){
+               cr[row] += (s[col] == '.');
+               cc[col] += (s[col] == '.');
+            }
+            mat.pb(s);
+        } 
+        int ans  = r+c;
+        forn(i,r){
+            forn(j,c){
+                ans = min(ans,(cr[i]+cc[j]- (mat[i][j]=='.'))); 
+            }   
+        }
+        cout << ans << endl;
+    }
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

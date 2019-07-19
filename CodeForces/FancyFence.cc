@@ -15,7 +15,7 @@
 #define out(x) freopen(#x".txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
 #define cls(a,val) memset(a,val,sizeof a)
-#define eps 1e-9
+#define eps 1e-10
 #define mod 1000000007
 #define INf 3000000000000000007ll
 
@@ -44,20 +44,27 @@ template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
 const double PI = acos(-1); 
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
-double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2) + pow(y-y_,2));}
-int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
 
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(0);
-    cout.precision(10);
+    cout.precision(15);
     cout << fixed;
 #ifdef LOCAL
     in();
- //   err();
+    err();
 #endif
+
+    int ntc;
+    cin >> ntc;
+    forn(q,ntc){
+        double angle;
+        cin >> angle;
+        double f =  2  / (1- (angle/180.0));
+        cout << ( abs(f-ceil(f))  < eps ? "YES" : "NO") << endl;
+    }
  
 
 #ifdef LOCAL

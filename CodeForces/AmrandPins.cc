@@ -44,21 +44,25 @@ template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
 const double PI = acos(-1); 
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
-double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2) + pow(y-y_,2));}
-int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
 
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(0);
-    cout.precision(10);
+    cout.precision(0);
     cout << fixed;
 #ifdef LOCAL
     in();
  //   err();
 #endif
- 
+    double  r, x, y, x_, y_;
+    cin >> r >> x >> y >> x_ >> y_;
+    double dist = pow(x-x_,2) + pow(y-y_,2);
+    dist = sqrt(dist);
+    cout << ceil(dist/(r*2)) << endl;
+
+    
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

@@ -44,8 +44,10 @@ template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
 const double PI = acos(-1); 
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
-double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2) + pow(y-y_,2));}
-int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
+
+int isTriangle(int a, int b, int c){
+    return (a+b>c && a+c>b && c+b>a);
+}
 
 
 int main() {
@@ -56,9 +58,30 @@ int main() {
     cout << fixed;
 #ifdef LOCAL
     in();
- //   err();
+    //err();
 #endif
- 
+    int n;
+    cin >> n;
+    vi arr(n);
+    forn(i,n){
+        cin >> arr[i];
+    }
+    sort(all(arr));
+    int ok = 0;
+    forn(i,n-2){
+        int a = arr[i] , b = arr[i+1] , c = arr[i+2];
+        ok |= isTriangle(a,b,c);
+        if(ok){
+            cerr << a << " " << b <<  " " << c << endl;
+            cerr << a+b << " " << c << endl;
+            cerr << a+c << " " << b << endl;
+            cerr << b+c << " " << a  << endl;
+
+            break;
+        }
+    }
+    cout << (ok ? "YES": "NO") << endl;
+
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
