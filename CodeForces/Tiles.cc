@@ -63,8 +63,13 @@ int main() {
     in();
  //   err();
 #endif
-
-
+    int w , h ;
+    cin >> w >> h;
+    ll ans = 1;
+    forn(i,w+h){
+        ans = mul(ans,2);
+    }
+    cout << ans << endl;
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 #endif

@@ -17,7 +17,7 @@
 #define cls(a,val) memset(a,val,sizeof a)
 #define INF 3000000000000000007ll
 #define len(a) ((int)a.size())
-
+#define NEXT(a,n) ((i+1)%n)
 
 const double  eps =  1e-9;
 const int  MOD = 998244353; //1e9+7;
@@ -52,6 +52,7 @@ double RAD_to_DEG(double r) { return r * 180.0 / PI; }
 double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2) + pow(y-y_,2));}
 int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
 
+const int maxn = 1e6;
 
 int main() {
     ios::sync_with_stdio(false);
@@ -63,7 +64,48 @@ int main() {
     in();
  //   err();
 #endif
+    bitset<maxn> prime;
+    prime.set();
+    prime[1] = 0;
+    fore(i,2,maxn){
+        if(prime[i]) {
+            for(int j = i+i; j < maxn; j += i) {
+                prime[j] = 0;
+            }
+        }
+    }
+    
+    int n; 
+    cin >> n;
+    int degree[n];
+    cls(degree,0);
+    vpi g;
+    forn(i,n){
+        g.pb({i,NEXT(i,n)});
+        degree[i]++;
+        degree[NEXT(i,n)]++;
+    }
 
+    while(!prime[len(g)]){
+        forn(i,n) {
+            if(degree[i] == 2) {
+                for(int j = i+2; j < n; j++) {
+                    if(degree[j] == 2) {
+                        g.pb({i, j});
+                        degree[i]++;
+                        degree[j]++;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    cout << len(g) << endl;
+    for(auto tup  : g){
+        cout << tup.fi+1 << " " << tup.se+1 << endl;
+    }
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

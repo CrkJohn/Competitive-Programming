@@ -15,17 +15,13 @@
 #define out(x) freopen(#x".txt","w",stdout)
 #define err() freopen("err.txt","w",stderr)
 #define cls(a,val) memset(a,val,sizeof a)
-#define INF 3000000000000000007ll
+#define eps 1e-9
+#define mod 1000000007
+#define INf 3000000000000000007ll
+
 #define len(a) ((int)a.size())
 
 
-const double  eps =  1e-9;
-const int  MOD = 998244353; //1e9+7;
-
-inline int mul(int a, int b) { return 1ll*a*b%MOD; }
-inline int add(int a, int b) { return a + b < MOD ? a + b : a + b - MOD; }
- 
- 
 
 using namespace std;
 
@@ -41,10 +37,15 @@ typedef double ld;
 typedef pair<ld, ld> pld;
 typedef vector<string> vs;
 
-template<typename T> using minheap = priority_queue<T, vector<T>, greater<T>>;
-template<typename T> using maxheap = priority_queue<T, vector<T>, less<T>>;
-template <typename T> ostream& operator<<(ostream& os, vector<T> v){os << "[ ";for(auto e : v) os << e << " ";return os << "]";}
-template <typename T> ostream& operator<<(ostream& os, pair<T,T> p){os << "(" << p.fi << "," << p.se <<")";return os;}
+template <typename T> ostream& operator<<(ostream& os, vector<T> v) {
+    os << "[ ";for(auto e : v) os << e << " ";
+    return os << "]";
+}
+
+template <typename T> ostream& operator<<(ostream& os, pair<T,T> p) {
+    os << "(" << p.fi << "," << p.se <<")";
+    return os;
+}
 
 const double PI = acos(-1); 
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
@@ -63,7 +64,36 @@ int main() {
     in();
  //   err();
 #endif
+    int n ;
+    cin >> n;
+   
+    vi parties(n+1);
+    int parliament = 0;
+    forn(i,n){
+        cin >> parties[i];
+        parliament += parties[i];
+    }
+    vi chose;
+    chose.pb(1);
 
+    int sum = parties[0];   
+    fore(i,1,n-1){
+        //cout << parties[i] << endl;
+        if(2*parties[i]<=parties[0]){
+            chose.pb(i+1);
+            sum+=parties[i];
+        }
+    }
+   // cout << sum << " " << parliament << endl;
+    if(sum>parliament/2){
+        cout << len(chose) << endl;
+        forn(i,len(chose)-1){
+            cout << chose[i] <<  " ";
+        }
+        cout << chose[len(chose)-1] << endl;
+    }else{
+        cout << 0 << endl;
+    }
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
