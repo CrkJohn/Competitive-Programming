@@ -51,6 +51,7 @@ double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
 double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2) + pow(y-y_,2));}
 int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
+ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 
 
 int main() {
