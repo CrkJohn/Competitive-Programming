@@ -64,6 +64,15 @@ int main() {
     in();
  //   err();
 #endif
+    int q;
+    cin >> q;
+    forn(qq,q){
+        ll a , b , c;
+        cin >> a >> b >> c;
+        ll sum=a+b+c;
+        cout << sum/2 << endl;
+
+    }
 
 
 #ifdef LOCAL

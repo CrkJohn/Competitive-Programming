@@ -17,7 +17,7 @@
 #define cls(a,val) memset(a,val,sizeof a)
 #define INF 3000000000000000007ll
 #define len(a) ((int)a.size())
-
+#define NEXT(n,m) (((int)n+1) %m)
 
 const double  eps =  1e-9;
 const int  MOD = 998244353; //1e9+7;
@@ -64,7 +64,56 @@ int main() {
     in();
  //   err();
 #endif
-
+    string rgb = "RGB";
+    string rgb2 = "GBR";
+    string rgb3 = "BRG";
+    
+    int q;
+    cin >> q;
+    forn(qq,q){
+        int n,k;
+        cin >> n >> k;
+        string s;
+        cin >> s;
+        int id = 0, id1 = 0 , id2 = 0;
+        int minimo = 1e9;
+        int c1 = 0, c2 = 0 , c3 = 0;
+        forn(j,n){
+            if(s[j] != rgb[id]){
+                 c1++;
+            }
+            if(s[j] != rgb2[id]){
+                c2++;
+            }
+                
+            if(s[j] != rgb3[id]){
+                c3++;
+            }
+            id = NEXT(id,3);
+            if(j>=k-1){  
+                //cout << " j " << j << " " <<  s[j+1-k] << endl; 
+                minimo = min(minimo,c1);
+                minimo = min(minimo,c2);
+                minimo = min(minimo,c3);
+                if(s[j-k+1]!=rgb[id1]){
+                    c1--;
+                }
+                if(s[j-k+1] != rgb2[id1]){
+                    c2--;
+                }
+                if(s[j-k+1] != rgb3[id1]){
+                    c3--;
+                }     
+                id1 = NEXT(id1,3);    
+            }
+        }
+        //cout << " " << endl;
+        //cout << c1 << " " << c2 << " " << c3 << " "<< i <<  endl;
+        
+        
+        cout << minimo << endl;
+    }
+    
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";

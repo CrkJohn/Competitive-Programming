@@ -2,8 +2,8 @@
 
 #define mp make_pair
 #define mt make_tuple
-#define fi first
-#define se second
+#define X first
+#define Y second
 #define pb push_back
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
@@ -54,6 +54,7 @@ int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 
 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -64,6 +65,75 @@ int main() {
     in();
  //   err();
 #endif
+
+    int n , m  , k;
+    cin >> n>> m >> k;
+    vector< vector<pii> > adjList(n);
+
+    forn(i,m){
+        int u , v , w; 
+        cin >> u >> v >> w;
+        u--;
+        v--;
+        adjList[u].pb(pii(v,w));
+
+        adjList[v].pb(pii(u,w));
+    }
+    //define src
+    int tmp = n;
+    ll sum = 0 ;
+    fore(i.1,n){
+        sum += (i*n-1); 
+        if(sum>k){
+            s = i;
+            break;
+        }
+    }
+
+
+    int maxn = 2* 1e5;
+    int vis[maxn];
+    memset(vis,0,sizeof vis);
+    vi dis2;
+    //forn(nodes,n){
+        vi dis(n);
+        priority_queue<pii, vector<pii>, less<pii> > pq;
+
+        int s = nodes;
+        forn(i, n) dis[i]=1e9;  
+        dis[s]=0;
+        while (!pq.empty()) pq.pop();
+        int d,u;
+        pq.push(pii(0, s));
+        while (!pq.empty()){
+            pii par=pq.top(); pq.pop();
+            d=par.X; u=par.Y;
+            if (d>dis[u]) continue;
+            forn(j,(int) adjList[u].size()){
+                pii v=adjList[u][j];
+                if (dis[u]+v.Y < dis[v.X]){
+                    dis[v.X]= dis[u] + v.Y;
+                    pq.push(pii(dis[v.X], v.X));
+                }
+            }
+        }
+      //  forn(i,n){
+      //      if(nodes != i && !vis[dis[i]]){
+      //          dis2.pb(dis[i]);
+      //          vis[dis[i]] = 1;
+      //      }
+       // }
+    //}
+    /*vi ans;
+    for(auto n : dis2){
+        ans.pb(n);
+    } */
+
+    
+    sort(all(dis2));    
+    cout << dis2 << endl;
+    cout << dis2[k] << endl;
+    
 
 
 #ifdef LOCAL
