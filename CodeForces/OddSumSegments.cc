@@ -25,8 +25,6 @@ const int  MOD = 998244353; //1e9+7;
 inline int mul(int a, int b) { return 1ll*a*b%MOD; }
 inline int add(int a, int b) { return a + b < MOD ? a + b : a + b - MOD; }
  
- 
-
 using namespace std;
 
 typedef pair<int, int> pii;
@@ -45,7 +43,7 @@ template<typename T> using minheap = priority_queue<T, vector<T>, greater<T>>;
 template<typename T> using maxheap = priority_queue<T, vector<T>, less<T>>;
 template <typename T> ostream& operator<<(ostream& os, vector<T> v){os << "[ ";for(auto e : v) os << e << " ";return os << "]";}
 template <typename T> ostream& operator<<(ostream& os, pair<T,T> p){os << "(" << p.fi << "," << p.se <<")";return os;}
- 
+
 const double PI = acos(-1); 
 double DEG_to_RAD(double d) { return d * PI / 180.0; }
 double RAD_to_DEG(double r) { return r * 180.0 / PI; }
@@ -53,43 +51,6 @@ double distance(double x,double y, double x_,double y_){return  sqrt(pow(x-x_,2)
 int isTriangle(int a, int b, int c){return (a+b>c && a+c>b && c+b>a);}
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 
-
-int k , f = 0 , n;
-vi arr;
-
-        
-
-void kha(int i, int take,vi pos){
-    if(len(pos) == k && i < n){
-        return;
-    }
-    if(f)return;
-    if(len(pos)==k && i ==n){
-        cout << "YES" << endl;
-        forn(i,len(pos)-1){
-            cout << pos[i] << ' '; 
-        }
-        cout << pos[len(pos)-1] << endl;
-        f = 1;
-        return;
-    }
-
-    ll sum = 0;
-   
-    for(int cut = i ; cut < n && !f; ++cut){
-    //fore(cut,i,n-1){
-        sum+=arr[cut];
-        if(sum%2 != 0){
-
-            pos.pb(cut+1);
-            kha(cut+1,take+1,pos);
-            //cout << sum << " " << cut+1 << " " << take+1  << endl; 
-            
-            pos.pop_back();
-        }
-    }
-    return;
-}
 
 int main() {
     ios::sync_with_stdio(false);
@@ -101,26 +62,36 @@ int main() {
     in();
  //   err();
 #endif
-    int q;
+
+    int q; 
     cin >> q;
     forn(qq,q){
+        int  n , k;
         cin >> n >> k;
-        arr.clear();
-        arr.resize(n);
+        int a[n];
+        int oddCnt = 0;
         forn(i,n){
-            cin >> arr[i];
+            cin >> a[i];
+            oddCnt +=(a[i]%2);
         }
-        /*vi a;
-        f  = 0;
-        int take = 0;
-        kha(0,0,a);
-        if(!f)cout << "NO" << endl;
-        */
-        int pos = n/k;
-        
+        if(oddCnt%2 != k%2 || k>oddCnt){
+            cout <<  "NO" << endl;
+
+        }else{
+            cout << "YES" << endl;
+            forn(i,n){
+              if(k==1)break;
+              if(a[i]&1){
+                  cout << i+1 << " ";
+                  k--;
+              }  
+            }
+            cout << n << endl;
+        }
 
 
     }
+
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
