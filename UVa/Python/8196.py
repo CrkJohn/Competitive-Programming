@@ -32,7 +32,7 @@ class Edge:
         self.v = v
         self.w = w
 
-    def __str__(self):
+    def __str__(self)-> str:
         """
         :returns: a string that represent the edge between (u,v,w), u,v are nodes and w is the weigth the edge
         :rtype: str 
@@ -89,10 +89,27 @@ class DisjoinSet:
             self.rank[xRaiz]+=1
 
 class Node:
+    """
+        A class used to represent an target with weigth 
+        :param to: represent the label the node
+        :type to: int
+        :param w: represent the weigth of u -> v
+        :type w: int
+    """
     def __init__(self,to : int ,w : int):
+        """
+        :param to: represent the label the node
+        :type to: int
+        :param w: represent the weigth of u -> v
+        :type w: int
+        """
         self.to = to
         self.w = w
     def __str__(self) -> str:
+        """
+        :returns: a string that represent the target and weigth the a node i-th
+        :rtype: str 
+        """     
         return "({},{})".format(self.to,self.w)
 
 
@@ -125,7 +142,9 @@ def solve():
             dfs(nodes,nodes,tree)
 
     Queries = int(input())
+    #Queries = int(stdin.readline().strip())
     for q in range(Queries):
+        #u , v = [int(x) for x in stdin.readline().strip().split()]
         u,v = map(int,input().split())
         print(mst - maxEdge[u][v] + cost[(u,v)])
     
@@ -133,15 +152,17 @@ def solve():
 
 if __name__ == "__main__":
     while 1:
-        lec = input().strip()
+        lec = stdin.readline().strip()
         if len(lec) == 0:
             break
         #N , M = map(int,lec.split())    
+        N, M = [int(x) for x in lec.split()]
         N+=1
         listEdges = list()
         cost = dict()
         for i in range(M):
-            U,V,W = map(int,input().split())
+            #U,V,W = map(int,input().split())
+            U ,V ,W = [int(x) for x in stdin.readline().strip().split()]
             listEdges.append(Edge(U,V,W))
             cost[(U,V)] = W
         listEdges.sort(key = lambda edgeSort : edgeSort.w)
