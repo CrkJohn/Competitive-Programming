@@ -16,7 +16,11 @@ class Edge:
     :returns: a edge
     :rtype: Node
     """ 
+<<<<<<< HEAD
     def __init__(self,u : int ,v : int,w : int = 0):
+=======
+    def __init__(self,u : int ,v : int,w  = 0 : int):
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
         """            
         :param u: present a node with label u
         :type u: int
@@ -41,14 +45,22 @@ class Edge:
     
 
 class DisjoinSet:
+<<<<<<< HEAD
     """
+=======
+     """
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
         A class used to represent an disjoin set the a graph
         :param n: represent the amount of nodes on the graph
         :type u: int
         :returns: a disjoin set
         :rtype: DisjoinSet
+<<<<<<< HEAD
     """
     
+=======
+    """ 
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     def __init__(self, n : int):
         """            
         :param n: represent the amount of nodes on the graph
@@ -59,7 +71,10 @@ class DisjoinSet:
         self.padre = [x for x in range(n)]
         self.rank = [0 for x in range(n)]
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     def Buscar(self, x : int) -> int:
         """            
         :param x: represent the label of  the node that search its father
@@ -117,6 +132,7 @@ class Node:
 
 
 def kruskal(n : int, unionFind :  DisjoinSet , listEdges = list()):
+<<<<<<< HEAD
     """
     :param n: represent the amount nodes in the graph
     :type n: int
@@ -128,6 +144,9 @@ def kruskal(n : int, unionFind :  DisjoinSet , listEdges = list()):
     :rtype: int, list of list of type Nodes
     """     
     mst = 0 
+=======
+    mst = 0
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     tree = [ [] for x in range(n)]
     for edgeIter in listEdges:
         e = edgeIter
@@ -148,12 +167,17 @@ def dfs(src : int , u  : int ,tree : list()):
     maxEdge[src][node.to] = max(maxEdge[src][u],node.w) 
     dfs(src,node.to,tree)
 
+<<<<<<< HEAD
 def solve(mst, tree , cost, N):
+=======
+def solve():
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     global maxEdge
     maxEdge = [ [ 0 for i in range(N)] for j in range(N)]
     for nodes,listTree in enumerate(tree):
         if listTree:
             dfs(nodes,nodes,tree)
+<<<<<<< HEAD
     Queries = int(input())
     for q in range(Queries):
         u,v = map(int,input().split())
@@ -187,4 +211,36 @@ if __name__ == "__main__":
         unionFind = DisjoinSet(N)
         mst, tree = kruskal(N,unionFind, listEdges)
         solve(mst, tree , cost ,N)      
+=======
+
+    Queries = int(input())
+    #Queries = int(stdin.readline().strip())
+    for q in range(Queries):
+        #u , v = [int(x) for x in stdin.readline().strip().split()]
+        u,v = map(int,input().split())
+        print(mst - maxEdge[u][v] + cost[(u,v)])
+    
+    
+
+if __name__ == "__main__":
+    while 1:
+        lec = stdin.readline().strip()
+        if len(lec) == 0:
+            break
+        #N , M = map(int,lec.split())    
+        N, M = [int(x) for x in lec.split()]
+        N+=1
+        listEdges = list()
+        cost = dict()
+        for i in range(M):
+            #U,V,W = map(int,input().split())
+            U ,V ,W = [int(x) for x in stdin.readline().strip().split()]
+            listEdges.append(Edge(U,V,W))
+            cost[(U,V)] = W
+        listEdges.sort(key = lambda edgeSort : edgeSort.w)
+        unionFind = DisjoinSet(N)
+        mst, tree = kruskal(N,unionFind, listEdges)
+        solve()
+        
+>>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     
