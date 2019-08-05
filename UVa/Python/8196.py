@@ -16,11 +16,7 @@ class Edge:
     :returns: a edge
     :rtype: Node
     """ 
-<<<<<<< HEAD
     def __init__(self,u : int ,v : int,w : int = 0):
-=======
-    def __init__(self,u : int ,v : int,w  = 0 : int):
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
         """            
         :param u: present a node with label u
         :type u: int
@@ -45,22 +41,14 @@ class Edge:
     
 
 class DisjoinSet:
-<<<<<<< HEAD
     """
-=======
-     """
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
         A class used to represent an disjoin set the a graph
         :param n: represent the amount of nodes on the graph
         :type u: int
         :returns: a disjoin set
         :rtype: DisjoinSet
-<<<<<<< HEAD
     """
     
-=======
-    """ 
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     def __init__(self, n : int):
         """            
         :param n: represent the amount of nodes on the graph
@@ -71,10 +59,7 @@ class DisjoinSet:
         self.padre = [x for x in range(n)]
         self.rank = [0 for x in range(n)]
 
-<<<<<<< HEAD
 
-=======
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     def Buscar(self, x : int) -> int:
         """            
         :param x: represent the label of  the node that search its father
@@ -132,8 +117,8 @@ class Node:
 
 
 def kruskal(n : int, unionFind :  DisjoinSet , listEdges = list()):
-<<<<<<< HEAD
     """
+    Create a minimun spaning tree given a list edges and at the same time creta the value itself
     :param n: represent the amount nodes in the graph
     :type n: int
     :param unionFind: represent the disjoin set of the nodes
@@ -144,9 +129,6 @@ def kruskal(n : int, unionFind :  DisjoinSet , listEdges = list()):
     :rtype: int, list of list of type Nodes
     """     
     mst = 0 
-=======
-    mst = 0
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     tree = [ [] for x in range(n)]
     for edgeIter in listEdges:
         e = edgeIter
@@ -158,32 +140,49 @@ def kruskal(n : int, unionFind :  DisjoinSet , listEdges = list()):
     return mst,tree
 
 def dfs(src : int , u  : int ,tree : list()):
-  global maxEdge
+    """
+    Searching the value maximun edge that share src-u 
+    :param src: represent the source the search
+    :type src: int
+    :param u: represent the node currenty begin explored 
+    :type u:  int
+    :param tree: represent the list of list of nodes, represent the minimun spaning tree 
+    :type listEdges: list of list of nodes
+    """     
+    global maxEdge
+    for node in tree[u]: 
+        if maxEdge[src][node.to] > 0:
+            continue
+        maxEdge[src][node.to] = max(maxEdge[src][u],node.w) 
+        dfs(src,node.to,tree)
 
-
-  for node in tree[u]: 
-    if maxEdge[src][node.to] > 0:
-        continue
-    maxEdge[src][node.to] = max(maxEdge[src][u],node.w) 
-    dfs(src,node.to,tree)
-
-<<<<<<< HEAD
 def solve(mst, tree , cost, N):
-=======
-def solve():
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
+    """
+    Make a dfs over all nodes the graph searching the value maximun edge that share u-v after this response the queries, for each query
+    calcule the value the second minimun spanig tree in time O(1)
+    :param mst: represent the value the minimun spaning tree
+    :type mst: int
+    :param tree: represent the list of list of nodes, represent the minimun spaning tree 
+    :type listEdges: list of list of nodes
+    :param cost: represent the cost of going the node u-v 
+    :type cost: is dictonary with a pair of int represented the edge between u-v and value the cost  of going u-v
+    """     
     global maxEdge
     maxEdge = [ [ 0 for i in range(N)] for j in range(N)]
     for nodes,listTree in enumerate(tree):
         if listTree:
             dfs(nodes,nodes,tree)
-<<<<<<< HEAD
     Queries = int(input())
     for q in range(Queries):
         u,v = map(int,input().split())
         print(mst - maxEdge[u][v] + cost[(u,v)])
     
 def read_input():
+    """
+    Read input the exercise 
+    :returns: return a value boolean that means true if there are  something to read of otherwise not
+    :rtype boolean
+    """     
     global N,M   
     lec = stdin.readline().strip()
     if not len(lec):
@@ -193,6 +192,10 @@ def read_input():
     return True
         
 def create_graph():
+    """ 
+    Crete a list of edges and at the same time a dictonary in wich keep as key a pair of int where the tuple is the edge between u-v
+    and dictonary's value is the cost doing of u - v 
+    """
     global M
     listEdges = list()
     cost = dict()
@@ -211,36 +214,4 @@ if __name__ == "__main__":
         unionFind = DisjoinSet(N)
         mst, tree = kruskal(N,unionFind, listEdges)
         solve(mst, tree , cost ,N)      
-=======
-
-    Queries = int(input())
-    #Queries = int(stdin.readline().strip())
-    for q in range(Queries):
-        #u , v = [int(x) for x in stdin.readline().strip().split()]
-        u,v = map(int,input().split())
-        print(mst - maxEdge[u][v] + cost[(u,v)])
-    
-    
-
-if __name__ == "__main__":
-    while 1:
-        lec = stdin.readline().strip()
-        if len(lec) == 0:
-            break
-        #N , M = map(int,lec.split())    
-        N, M = [int(x) for x in lec.split()]
-        N+=1
-        listEdges = list()
-        cost = dict()
-        for i in range(M):
-            #U,V,W = map(int,input().split())
-            U ,V ,W = [int(x) for x in stdin.readline().strip().split()]
-            listEdges.append(Edge(U,V,W))
-            cost[(U,V)] = W
-        listEdges.sort(key = lambda edgeSort : edgeSort.w)
-        unionFind = DisjoinSet(N)
-        mst, tree = kruskal(N,unionFind, listEdges)
-        solve()
-        
->>>>>>> dd032bc74d2cb17cc114d36a401132f38b09d12d
     
