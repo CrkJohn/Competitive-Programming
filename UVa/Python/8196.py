@@ -186,10 +186,9 @@ def read_input():
     global N,M   
     lec = stdin.readline().strip()
     if not len(lec):
-        return False 
+        return 0,0
     N , M = map(int,lec.split())    
-    N+=1
-    return True
+    return N,M
         
 def create_graph():
     """ 
@@ -209,9 +208,12 @@ def create_graph():
       
 
 if __name__ == "__main__":
-    while read_input():
-        listEdges, cost  =  create_graph()
+    while 1:
+        N,M =read_input()
+        if( N == 0 or  M ==0):
+            break
+        listEdges, cost  =  create_graph(M)
         unionFind = DisjoinSet(N)
         mst, tree = kruskal(N,unionFind, listEdges)
-        solve(mst, tree , cost ,N)      
+        solve(mst, tree , cost ,N)
     

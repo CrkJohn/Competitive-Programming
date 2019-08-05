@@ -63,7 +63,16 @@ int main() {
     in();
  //   err();
 #endif
-
+    int n;
+    cin >> n;
+    ll sum = 0;
+    ll a[n];
+    forn(i,n){
+        ll m;
+        cin >> m;
+        sum+=m;
+    }
+    cout << ( sum%2 ==0 ?  "YES" : "NO" )<< endl;
 
 #ifdef LOCAL
     cerr << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
