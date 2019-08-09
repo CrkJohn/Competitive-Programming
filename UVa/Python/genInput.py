@@ -3,14 +3,30 @@ from matplotlib import pyplot as plt
 from networkx import nx
 from collections import deque
 import random
+import app
+import unittest
+
 
 random.seed('Second spaning tree...')
 
-class GenInput:
+class GenInput():
 
     def __init__(self, n : int ):
         self.n = n
-        self.graph_cycle()
+        sol = self.graph_cycle()
+        app.main(True)
+        op = open("test.out",'r')
+        testNumber = 1
+        while 1:
+            lec = op.readline().strip()
+            if not lec:
+                break
+            mstTest = int(lec)
+            #self.assertEqual(sol, mstTest)
+            assert(sol == mstTest,"Wrongs Answer test {}".format(testNumber))
+            testNumber +=1
+        
+        
 
     def triangle_tree(self):
         f= open("test.in","w+")
@@ -39,13 +55,14 @@ class GenInput:
         f.write("{}\n".format(len(que)))
         for u,v in que:
             f.write("{} {}\n".format(u,v))
+        f.write("0 0")
         f.close()
-        
-        self.showGraph(G,W)
+        #self.showGraph(G,W)
+        return mst
 
     def binary_tree(self):
         f= open("test.in","w+")
-        f.write("{} {}".format(self.n,self.n-1))
+        f.write("{} {}\n".format(self.n,self.n-1))
         h = 10#random.randrange(1,10)
         G = [[] for i in range(4*self.n+10)]
         W = [[] for i in range(4*self.n+10)]
@@ -68,14 +85,15 @@ class GenInput:
             f.write("{} {} {}\n".format(current,current*2+1,w))
             q.append((current*2,tup[1]+1))
             q.append((current*2+1,tup[1]+1))
-        f.write("2")
+        f.write("1")
         f.write("1 2")
+        f.write("0 0")
         f.close()
+        return mst
         
     
     def graph_cycle(self):
         f= open("test.in","w+")
-        f.write("{} {}".format(self.n,self.n-1))
         G = [[] for i in range(2*self.n+10)]
         W = [[] for i in range(2*self.n+10)]
         m = 0
@@ -93,13 +111,15 @@ class GenInput:
         for i in range(1,self.n+1):
             for j in range(i+2,self.n+1):
                 query+=1
-        f.write("{}".format(query))        
+        f.write("{}\n".format(query))        
         for i in range(1,self.n+1):
             for j in range(i+2,self.n+1):
                 f.write("{} {}\n".format(i,j))
+        f.write("0 0")
         f.close()    
         mst = self.n-1
-        self.showGraph(G,W)
+        #self.showGraph(G,W)
+        return mst
 
     
     def randomGraphW(self,directed=True):
@@ -142,3 +162,5 @@ class GenInput:
             nx.draw_networkx_edge_labels(nxG, pos, edge_labels=labels)
         plt.show()
         return
+
+    

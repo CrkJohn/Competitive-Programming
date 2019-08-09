@@ -173,10 +173,16 @@ def solve(mst, tree , cost, N):
         if listTree:
             dfs(nodes,nodes,tree)
     Queries = int(test.readline().strip()) if std else int(input())
+    if std:
+        f= open("test.out","w+")
+       
     for q in range(Queries):
         u,v = [int(x) for x in test.readline().strip().split()] if std else  map(int,input().split())
-        print(mst - maxEdge[u][v] + cost[(u,v)])
-    
+        if not std:
+            print(mst - maxEdge[u][v] + cost[(u,v)])
+        f.write(f"{mst - maxEdge[u][v] + cost[(u,v)]}\n")
+    f.close()
+        
 def read_input():
     """
     Read input the exercise 
