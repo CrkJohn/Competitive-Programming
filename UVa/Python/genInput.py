@@ -9,24 +9,47 @@ import unittest
 
 random.seed('Second spaning tree...')
 
-class GenInput():
-
-    def __init__(self, n : int ):
-        self.n = n
+class GenInput(unittest.TestCase):
+    def test_graph_cycle(self):
+        self.n = 4
         sol = self.graph_cycle()
         app.main(True)
         op = open("test.out",'r')
-        testNumber = 1
+        testNumber = 1        
         while 1:
             lec = op.readline().strip()
             if not lec:
                 break
             mstTest = int(lec)
-            #self.assertEqual(sol, mstTest)
-            assert(sol == mstTest,"Wrongs Answer test {}".format(testNumber))
-            testNumber +=1
-        
-        
+            self.assertEqual(sol,mstTest,"Wrongs Answer graph cycle correct answer is ".format(sol))
+    def test_graph_triangle_tree(self):
+        self.n = 4
+        sol = self.triangle_tree()
+        app.main(True)
+        op = open("test.out",'r')
+        testNumber = 1        
+        while 1:
+            lec = op.readline().strip()
+            if not lec:
+                break
+            mstTest = int(lec)
+            self.assertEqual(sol,mstTest,"Wrongs Answer traingle tree correct answer is ".format(sol))
+    
+    """
+    def test_binary_tree(self):
+        self.n = 4
+        sol = self.binary_tree()
+        app.main(True)
+        op = open("test.out",'r')
+        testNumber = 1        
+        while 1:
+            lec = op.readline().strip()
+            if not lec:
+                break
+            mstTest = int(lec)
+            self.assertEqual(sol,mstTest,"Wrongs Answer binary_tree correct answer is ".format(sol))
+    """
+
 
     def triangle_tree(self):
         f= open("test.in","w+")
@@ -34,14 +57,13 @@ class GenInput():
         h = 10#random.randrange(1,10)
         G = [[] for i in range(2*self.n+10)]
         W = [[] for i in range(4*self.n+10)]
+        mst = 0
         for i in range(1,self.n//2):
             G[i].append(i+1)
             W[i].append(1)
-            print(i,i+1)
             f.write("{} {} 1\n".format(i,i+1))
         nodeCurrent = 1
         for i in range(self.n//2+1,self.n+1):
-            print(nodeCurrent,i)
             G[nodeCurrent].append(i)
             W[nodeCurrent].append(1)            
             f.write("{} {} 1\n".format(nodeCurrent,i))
@@ -85,8 +107,8 @@ class GenInput():
             f.write("{} {} {}\n".format(current,current*2+1,w))
             q.append((current*2,tup[1]+1))
             q.append((current*2+1,tup[1]+1))
-        f.write("1")
-        f.write("1 2")
+        f.write("1\n")
+        f.write("1 2\n")
         f.write("0 0")
         f.close()
         return mst
@@ -117,7 +139,7 @@ class GenInput():
                 f.write("{} {}\n".format(i,j))
         f.write("0 0")
         f.close()    
-        mst = self.n-1
+        mst = self.n-2+10
         #self.showGraph(G,W)
         return mst
 
@@ -144,7 +166,6 @@ class GenInput():
                 W[j].append(w)
         inp+="{}".format(q)+'\n'
         inp+=out
-        print(inp)
         self.showGraph(G,W)
 
     def showGraph(self,G, W=None):
@@ -162,5 +183,6 @@ class GenInput():
             nx.draw_networkx_edge_labels(nxG, pos, edge_labels=labels)
         plt.show()
         return
-
+if __name__ == '__main__':
+    unittest.main()
     
